@@ -6,25 +6,42 @@
 }
 
 :root {
-    /* 赛博朋克色彩方案 */
-    --cyber-black: #0a0a0a;
-    --cyber-dark: #1a1a1a;
-    --cyber-darker: #0f0f0f;
-    --cyber-blue: #00ffff;
-    --cyber-pink: #ff00aa;
-    --cyber-purple: #8000ff;
-    --cyber-green: #00ff41;
-    --cyber-yellow: #ffff00;
-    --cyber-orange: #ff6600;
+    /* 调色盘颜色方案 */
+    --primary-cyan: #25BCFF;        /* 浅蓝色 */
+    --primary-blue: #1781E8;        /* 中蓝色 */
+    --primary-purple: #9223FF;      /* 紫色 */
+    --primary-magenta: #E62DE8;     /* 紫红色 */
+    --primary-pink: #FF0DC0;        /* 粉红色 */
     
-    /* 渐变 */
-    --cyber-gradient: linear-gradient(45deg, var(--cyber-blue), var(--cyber-pink));
-    --cyber-gradient-alt: linear-gradient(135deg, var(--cyber-purple), var(--cyber-green));
+    /* 背景色系 */
+    --dark-bg: #000000;             /* 纯黑背景 */
+    --card-bg: #0a0a1a;             /* 深蓝卡片背景 */
+    --surface-bg: #1a1a2e;          /* 表面背景 */
+    --overlay-bg: #16213e;          /* 遮罩背景 */
     
-    /* 阴影 */
-    --cyber-glow: 0 0 20px var(--cyber-blue);
-    --cyber-glow-pink: 0 0 20px var(--cyber-pink);
-    --cyber-glow-purple: 0 0 15px var(--cyber-purple);
+    /* 文字色系 */
+    --text-primary: #ffffff;        /* 主要文字 */
+    --text-secondary: #b8c6db;      /* 次要文字 */
+    --text-accent: #25BCFF;         /* 强调文字 */
+    
+    /* 边框色系 */
+    --border-color: rgba(37, 188, 255, 0.3);
+    --border-hover: rgba(146, 35, 255, 0.5);
+    
+    /* 渐变配色 */
+    --primary-gradient: linear-gradient(135deg, #25BCFF, #1781E8);
+    --secondary-gradient: linear-gradient(135deg, #9223FF, #E62DE8);
+    --accent-gradient: linear-gradient(135deg, #E62DE8, #FF0DC0);
+    --rainbow-gradient: linear-gradient(135deg, #25BCFF, #1781E8, #9223FF, #E62DE8, #FF0DC0);
+    --card-gradient: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(26, 26, 46, 0.9));
+    
+    /* 发光效果 */
+    --cyan-glow: 0 0 20px rgba(37, 188, 255, 0.4);
+    --blue-glow: 0 0 20px rgba(23, 129, 232, 0.4);
+    --purple-glow: 0 0 20px rgba(146, 35, 255, 0.4);
+    --magenta-glow: 0 0 20px rgba(230, 45, 232, 0.4);
+    --pink-glow: 0 0 20px rgba(255, 13, 192, 0.4);
+    --rainbow-glow: 0 0 30px rgba(37, 188, 255, 0.3), 0 0 60px rgba(146, 35, 255, 0.2), 0 0 90px rgba(255, 13, 192, 0.1);
     
     /* 字体 */
     --font-primary: 'Orbitron', monospace;
@@ -33,34 +50,61 @@
     /* 布局 */
     --header-height: 70px;
     --footer-height: 80px;
-    --border-cyber: 2px solid transparent;
+    --border-radius: 12px;
 }
 
 body {
     font-family: var(--font-primary);
-    background: var(--cyber-black);
-    color: var(--cyber-blue);
+    background: var(--dark-bg);
+    color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
     
-    /* 赛博朋克背景效果 */
+    /* 深空渐变背景效果 */
     background-image: 
-        radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 0, 170, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(128, 0, 255, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 20% 20%, rgba(37, 188, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(146, 35, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(230, 45, 232, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(255, 13, 192, 0.05) 0%, transparent 50%);
 }
 
-/* 像素化边框效果 */
-.pixel-border {
-    border: 2px solid var(--cyber-blue);
-    border-image: 
-        linear-gradient(45deg, 
-            var(--cyber-blue) 0%, 
-            transparent 25%, 
-            var(--cyber-blue) 50%, 
-            transparent 75%, 
-            var(--cyber-blue) 100%) 1;
+/* Logo 样式调整 */
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: var(--cyan-glow);
+    animation: pulse-glow 3s ease-in-out infinite alternate;
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(37, 188, 255, 0.6));
+}
+
+.logo-icon:hover .logo-image {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(146, 35, 255, 0.8));
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 900;
+    background: var(--rainbow-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(37, 188, 255, 0.5);
+    animation: text-glow 4s ease-in-out infinite alternate;
 }
 
 /* 顶部导航栏 */
@@ -70,15 +114,15 @@ body {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95));
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 26, 0.95));
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--cyber-blue);
+    border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     
-    /* 霓虹边框效果 */
+    /* 彩虹边框效果 */
     box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.3),
-        inset 0 1px 0 rgba(0, 255, 255, 0.2);
+        0 0 20px rgba(37, 188, 255, 0.2),
+        inset 0 1px 0 rgba(37, 188, 255, 0.1);
 }
 
 .header-container {
@@ -97,80 +141,6 @@ body {
     gap: 12px;
 }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--cyber-gradient);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: var(--cyber-black);
-    box-shadow: var(--cyber-glow);
-    animation: pulse-glow 2s ease-in-out infinite alternate;
-}
-
-.logo-text {
-    font-size: 24px;
-    font-weight: 900;
-    background: var(--cyber-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-.main-nav {
-    display: flex;
-    gap: 8px;
-}
-
-.nav-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    background: transparent;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    color: var(--cyber-blue);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: var(--font-primary);
-    font-size: 14px;
-    position: relative;
-    overflow: hidden;
-}
-
-.nav-btn:hover {
-    border-color: var(--cyber-blue);
-    box-shadow: var(--cyber-glow);
-    transform: translateY(-2px);
-}
-
-.nav-btn.active {
-    background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 170, 0.2));
-    border-color: var(--cyber-blue);
-    box-shadow: var(--cyber-glow);
-}
-
-.nav-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.nav-btn:hover::before {
-    left: 100%;
-}
-
 .header-actions {
     display: flex;
     gap: 8px;
@@ -180,10 +150,10 @@ body {
 .action-btn {
     width: 44px;
     height: 44px;
-    background: rgba(0, 255, 255, 0.1);
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: linear-gradient(135deg, rgba(37, 188, 255, 0.1), rgba(146, 35, 255, 0.1));
+    border: 1px solid rgba(37, 188, 255, 0.3);
     border-radius: 50%;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -194,9 +164,11 @@ body {
 }
 
 .action-btn:hover {
-    background: rgba(0, 255, 255, 0.2);
-    box-shadow: var(--cyber-glow);
+    background: linear-gradient(135deg, rgba(37, 188, 255, 0.2), rgba(146, 35, 255, 0.2));
+    box-shadow: var(--purple-glow);
     transform: scale(1.1);
+    color: var(--primary-cyan);
+    border-color: var(--primary-purple);
 }
 
 .notification-badge {
@@ -205,7 +177,7 @@ body {
     right: -4px;
     width: 18px;
     height: 18px;
-    background: var(--cyber-pink);
+    background: var(--accent-gradient);
     border-radius: 50%;
     font-size: 10px;
     font-weight: bold;
@@ -213,7 +185,7 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 0 10px var(--cyber-pink);
+    box-shadow: var(--pink-glow);
 }
 
 /* 主要内容区域 */
@@ -226,13 +198,13 @@ body {
 
 /* 筛选栏 */
 .filter-bar {
-    background: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(15, 15, 15, 0.8));
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 12px;
+    background: var(--card-gradient);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     padding: 20px;
     margin-bottom: 30px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), var(--cyan-glow);
 }
 
 .filter-container {
@@ -253,33 +225,52 @@ body {
 .filter-tag {
     padding: 8px 16px;
     background: transparent;
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    border: 1px solid var(--border-color);
     border-radius: 20px;
-    color: var(--cyber-blue);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: var(--font-primary);
     font-size: 12px;
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--rainbow-gradient);
+    opacity: 0.1;
+    transition: left 0.5s ease;
 }
 
 .filter-tag:hover {
-    border-color: var(--cyber-blue);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    border-color: var(--primary-cyan);
+    box-shadow: var(--cyan-glow);
+    color: var(--primary-cyan);
+}
+
+.filter-tag:hover::before {
+    left: 100%;
 }
 
 .filter-tag.active {
-    background: var(--cyber-gradient);
-    color: var(--cyber-black);
+    background: var(--primary-gradient);
+    color: white;
     border-color: transparent;
-    box-shadow: var(--cyber-glow);
+    box-shadow: var(--blue-glow);
 }
 
 .cyber-select {
-    background: rgba(26, 26, 26, 0.8);
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(26, 26, 46, 0.8);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
     padding: 8px 12px;
     font-family: var(--font-primary);
     font-size: 12px;
@@ -289,8 +280,8 @@ body {
 
 .cyber-select:focus {
     outline: none;
-    border-color: var(--cyber-blue);
-    box-shadow: var(--cyber-glow);
+    border-color: var(--primary-purple);
+    box-shadow: var(--purple-glow);
 }
 
 /* 文章网格 */
@@ -304,8 +295,8 @@ body {
 
 /* 文章卡片 */
 .article-card {
-    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(15, 15, 15, 0.9));
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: var(--card-gradient);
+    border: 1px solid rgba(37, 188, 255, 0.2);
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
@@ -321,22 +312,23 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+    background: var(--rainbow-gradient);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    border-radius: 16px;
 }
 
 .article-card:hover {
     transform: translateY(-8px);
-    border-color: var(--cyber-blue);
+    border-color: var(--primary-purple);
     box-shadow: 
         0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(0, 255, 255, 0.3);
+        var(--rainbow-glow);
 }
 
 .article-card:hover::before {
-    opacity: 1;
+    opacity: 0.05;
 }
 
 .card-header {
@@ -373,7 +365,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--cyber-blue);
+    color: var(--primary-cyan);
     font-size: 24px;
     opacity: 0;
     transition: all 0.3s ease;
@@ -383,7 +375,7 @@ body {
 .article-card:hover .card-overlay {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: var(--cyber-glow);
+    box-shadow: var(--cyan-glow);
 }
 
 .card-meta {
@@ -397,8 +389,8 @@ body {
 
 .card-tag {
     padding: 4px 8px;
-    background: var(--cyber-gradient);
-    color: var(--cyber-black);
+    background: var(--primary-gradient);
+    color: white;
     border-radius: 12px;
     font-size: 10px;
     font-weight: bold;
@@ -407,16 +399,16 @@ body {
 }
 
 .card-tag.design {
-    background: linear-gradient(45deg, var(--cyber-pink), var(--cyber-purple));
+    background: var(--secondary-gradient);
 }
 
 .card-tag.programming {
-    background: linear-gradient(45deg, var(--cyber-green), var(--cyber-yellow));
+    background: var(--accent-gradient);
 }
 
 .read-time {
     background: rgba(0, 0, 0, 0.7);
-    color: var(--cyber-blue);
+    color: var(--text-primary);
     padding: 4px 8px;
     border-radius: 8px;
     font-size: 10px;
@@ -430,21 +422,21 @@ body {
 .card-title {
     font-size: 18px;
     font-weight: 700;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
     margin-bottom: 12px;
     line-height: 1.4;
     transition: color 0.3s ease;
 }
 
 .article-card:hover .card-title {
-    background: var(--cyber-gradient);
+    background: var(--rainbow-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .card-summary {
-    color: rgba(0, 255, 255, 0.8);
+    color: var(--text-secondary);
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 16px;
@@ -465,8 +457,8 @@ body {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 2px solid var(--cyber-blue);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    border: 2px solid var(--primary-cyan);
+    box-shadow: var(--cyan-glow);
 }
 
 .author-info {
@@ -478,18 +470,18 @@ body {
 .author-name {
     font-size: 12px;
     font-weight: 600;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
 }
 
 .publish-time {
     font-size: 10px;
-    color: rgba(0, 255, 255, 0.6);
+    color: var(--text-secondary);
     font-family: var(--font-mono);
 }
 
 .card-actions {
     padding: 0 20px 20px;
-    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    border-top: 1px solid rgba(37, 188, 255, 0.1);
     padding-top: 16px;
 }
 
@@ -502,7 +494,7 @@ body {
 .stat-btn {
     background: transparent;
     border: none;
-    color: rgba(0, 255, 255, 0.7);
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -515,25 +507,26 @@ body {
 }
 
 .stat-btn:hover {
-    color: var(--cyber-blue);
-    background: rgba(0, 255, 255, 0.1);
+    color: var(--primary-cyan);
+    background: rgba(37, 188, 255, 0.1);
     transform: scale(1.05);
+    box-shadow: var(--cyan-glow);
 }
 
 .stat-btn.liked {
-    color: var(--cyber-pink);
+    color: var(--primary-magenta);
 }
 
 .stat-btn.liked:hover {
-    color: var(--cyber-pink);
-    background: rgba(255, 0, 170, 0.1);
-    box-shadow: 0 0 10px rgba(255, 0, 170, 0.3);
+    color: var(--primary-pink);
+    background: rgba(230, 45, 232, 0.1);
+    box-shadow: var(--magenta-glow);
 }
 
 /* 评论区域 */
 .comments-section {
-    border-top: 1px solid rgba(0, 255, 255, 0.1);
-    background: rgba(15, 15, 15, 0.5);
+    border-top: 1px solid rgba(37, 188, 255, 0.1);
+    background: rgba(26, 26, 46, 0.5);
 }
 
 .comments-section.collapsed .comments-list {
@@ -550,13 +543,13 @@ body {
 
 .comments-header h4 {
     font-size: 14px;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
 }
 
 .comments-toggle {
     background: transparent;
     border: none;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -579,7 +572,7 @@ body {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(37, 188, 255, 0.3);
 }
 
 .comment-content {
@@ -596,18 +589,18 @@ body {
 .comment-author {
     font-size: 12px;
     font-weight: 600;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
 }
 
 .comment-time {
     font-size: 10px;
-    color: rgba(0, 255, 255, 0.5);
+    color: var(--text-secondary);
     font-family: var(--font-mono);
 }
 
 .comment-text {
     font-size: 12px;
-    color: rgba(0, 255, 255, 0.8);
+    color: var(--text-secondary);
     line-height: 1.5;
 }
 
@@ -621,10 +614,10 @@ body {
 
 .load-more-btn {
     padding: 16px 32px;
-    background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 170, 0.1));
-    border: 1px solid var(--cyber-blue);
+    background: linear-gradient(45deg, rgba(37, 188, 255, 0.1), rgba(146, 35, 255, 0.1));
+    border: 1px solid var(--primary-cyan);
     border-radius: 50px;
-    color: var(--cyber-blue);
+    color: var(--text-primary);
     cursor: pointer;
     font-family: var(--font-primary);
     font-size: 14px;
@@ -639,8 +632,10 @@ body {
 
 .load-more-btn:hover {
     transform: translateY(-2px);
-    box-shadow: var(--cyber-glow);
-    background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 170, 0.2));
+    box-shadow: var(--rainbow-glow);
+    background: linear-gradient(45deg, rgba(37, 188, 255, 0.2), rgba(146, 35, 255, 0.2));
+    color: var(--primary-cyan);
+    border-color: var(--primary-purple);
 }
 
 .cyber-glow {
@@ -649,7 +644,8 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: var(--rainbow-gradient);
+    opacity: 0.2;
     transition: left 0.6s ease;
 }
 
@@ -664,13 +660,13 @@ body {
     left: 0;
     right: 0;
     height: var(--footer-height);
-    background: linear-gradient(135deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 26, 0.95));
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 26, 0.95));
     backdrop-filter: blur(20px);
-    border-top: 1px solid var(--cyber-blue);
+    border-top: 1px solid var(--border-color);
     z-index: 1000;
     box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(0, 255, 255, 0.2);
+        0 0 20px rgba(37, 188, 255, 0.2),
+        inset 0 -1px 0 rgba(37, 188, 255, 0.1);
 }
 
 .footer-container {
@@ -695,38 +691,75 @@ body {
     padding: 8px 16px;
     background: transparent;
     border: none;
-    color: rgba(0, 255, 255, 0.7);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: var(--font-primary);
     font-size: 10px;
     border-radius: 8px;
     min-width: 60px;
+    position: relative;
+}
+
+.footer-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--rainbow-gradient);
+    opacity: 0;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
 }
 
 .footer-btn:hover {
-    color: var(--cyber-blue);
-    background: rgba(0, 255, 255, 0.1);
+    color: var(--primary-cyan);
     transform: translateY(-2px);
 }
 
+.footer-btn:hover::before {
+    opacity: 0.1;
+}
+
 .footer-btn.active {
-    color: var(--cyber-blue);
-    background: rgba(0, 255, 255, 0.2);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    color: var(--primary-cyan);
+    background: rgba(37, 188, 255, 0.2);
+    box-shadow: var(--cyan-glow);
+}
+
+.footer-btn.active::before {
+    opacity: 0.15;
 }
 
 .footer-btn i {
     font-size: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-btn span {
+    position: relative;
+    z-index: 1;
 }
 
 /* 动画效果 */
 @keyframes pulse-glow {
     0% {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
     }
     100% {
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+        box-shadow: 0 0 30px rgba(146, 35, 255, 0.6);
+    }
+}
+
+@keyframes text-glow {
+    0% {
+        text-shadow: 0 0 10px rgba(37, 188, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(146, 35, 255, 0.8), 0 0 30px rgba(230, 45, 232, 0.5);
     }
 }
 
@@ -736,12 +769,13 @@ body {
         padding: 0 16px;
     }
     
-    .main-nav {
-        display: none;
-    }
-    
     .logo-text {
         font-size: 18px;
+    }
+    
+    .logo-icon {
+        width: 36px;
+        height: 36px;
     }
     
     .articles-grid {
@@ -790,7 +824,6 @@ body {
     .logo-icon {
         width: 32px;
         height: 32px;
-        font-size: 16px;
     }
     
     .logo-text {
@@ -837,14 +870,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--cyber-darker);
+    background: var(--surface-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--cyber-blue), var(--cyber-pink));
+    background: var(--primary-gradient);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--cyber-pink), var(--cyber-blue));
+    background: var(--secondary-gradient);
 } 

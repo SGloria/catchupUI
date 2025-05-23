@@ -302,9 +302,11 @@ function createHeartParticles(button) {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    for (let i = 0; i < 6; i++) {
+    const particles = ['💙', '💜', '🩷', '✨', '⭐'];
+    
+    for (let i = 0; i < 8; i++) {
         const particle = document.createElement('div');
-        particle.innerHTML = '💙';
+        particle.innerHTML = particles[Math.floor(Math.random() * particles.length)];
         particle.style.position = 'fixed';
         particle.style.left = centerX + 'px';
         particle.style.top = centerY + 'px';
@@ -317,7 +319,7 @@ function createHeartParticles(button) {
         
         // 动画
         setTimeout(() => {
-            const angle = (i / 6) * Math.PI * 2;
+            const angle = (i / 8) * Math.PI * 2;
             const distance = 50 + Math.random() * 30;
             particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
             particle.style.opacity = '0';
@@ -354,13 +356,16 @@ function createParticleBackground() {
     }
     
     function createParticle() {
+        const colors = [
+            '#25BCFF', '#1781E8', '#9223FF', '#E62DE8', '#FF0DC0'
+        ];
         return {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             size: Math.random() * 2 + 1,
             speedX: (Math.random() - 0.5) * 0.5,
             speedY: (Math.random() - 0.5) * 0.5,
-            color: `hsl(${180 + Math.random() * 60}, 100%, 70%)`
+            color: colors[Math.floor(Math.random() * colors.length)]
         };
     }
     
@@ -425,48 +430,11 @@ function createCyberEffects() {
             if (Math.random() > 0.7) {
                 el.style.animation = 'none';
                 setTimeout(() => {
-                    el.style.animation = 'pulse-glow 2s ease-in-out infinite alternate';
+                    el.style.animation = 'pulse-glow 3s ease-in-out infinite alternate';
                 }, 100);
             }
         });
     }, 3000);
-    
-    // 扫描线效果
-    createScanlines();
-}
-
-// 创建扫描线效果
-function createScanlines() {
-    const scanline = document.createElement('div');
-    scanline.style.position = 'fixed';
-    scanline.style.top = '0';
-    scanline.style.left = '0';
-    scanline.style.width = '100%';
-    scanline.style.height = '2px';
-    scanline.style.background = 'linear-gradient(90deg, transparent, #00ffff, transparent)';
-    scanline.style.pointerEvents = 'none';
-    scanline.style.zIndex = '9998';
-    scanline.style.opacity = '0.5';
-    
-    document.body.appendChild(scanline);
-    
-    function animateScanline() {
-        scanline.style.transform = 'translateY(-2px)';
-        scanline.style.transition = 'none';
-        
-        setTimeout(() => {
-            scanline.style.transition = 'transform 3s linear';
-            scanline.style.transform = `translateY(${window.innerHeight + 2}px)`;
-        }, 100);
-        
-        setTimeout(() => {
-            animateScanline();
-        }, 3100);
-    }
-    
-    setTimeout(() => {
-        animateScanline();
-    }, Math.random() * 5000);
 }
 
 // 通知系统
@@ -482,18 +450,18 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 170, 0.1));
-        border: 1px solid var(--cyber-blue);
+        background: linear-gradient(45deg, rgba(37, 188, 255, 0.1), rgba(146, 35, 255, 0.1));
+        border: 1px solid #25BCFF;
         border-radius: 8px;
         padding: 12px 16px;
-        color: var(--cyber-blue);
+        color: #ffffff;
         font-family: var(--font-primary);
         font-size: 12px;
         z-index: 10000;
         backdrop-filter: blur(10px);
         transform: translateX(100%);
         transition: transform 0.3s ease;
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
     `;
     
     document.body.appendChild(notification);
@@ -543,15 +511,15 @@ style.textContent = `
     }
     
     .cyber-notification.success {
-        border-color: var(--cyber-green);
-        color: var(--cyber-green);
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        border-color: #25BCFF;
+        color: #25BCFF;
+        box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
     }
     
     .cyber-notification.error {
-        border-color: var(--cyber-pink);
-        color: var(--cyber-pink);
-        box-shadow: 0 0 20px rgba(255, 0, 170, 0.3);
+        border-color: #FF0DC0;
+        color: #FF0DC0;
+        box-shadow: 0 0 20px rgba(255, 13, 192, 0.3);
     }
     
     body.loaded .article-card {
