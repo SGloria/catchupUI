@@ -487,8 +487,24 @@ body {
 
 .engagement-stats {
     display: flex;
+    flex-direction: column;
     gap: 16px;
+    align-items: stretch;
+}
+
+.action-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.action-group {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
 }
 
 .stat-btn {
@@ -499,11 +515,14 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 8px;
     transition: all 0.3s ease;
     font-size: 12px;
     font-family: var(--font-primary);
+    min-width: 60px;
+    justify-content: center;
+    border: 1px solid transparent;
 }
 
 .stat-btn:hover {
@@ -511,16 +530,120 @@ body {
     background: rgba(37, 188, 255, 0.1);
     transform: scale(1.05);
     box-shadow: var(--cyan-glow);
+    border-color: rgba(37, 188, 255, 0.3);
 }
 
 .stat-btn.liked {
-    color: var(--primary-magenta);
+    color: var(--primary-cyan);
+    background: rgba(37, 188, 255, 0.15);
+    border-color: var(--primary-cyan);
 }
 
 .stat-btn.liked:hover {
-    color: var(--primary-pink);
-    background: rgba(230, 45, 232, 0.1);
+    color: var(--primary-cyan);
+    background: rgba(37, 188, 255, 0.25);
+    box-shadow: var(--cyan-glow);
+}
+
+.stat-btn.neutral {
+    color: #ffa500;
+    background: rgba(255, 165, 0, 0.15);
+    border-color: #ffa500;
+}
+
+.stat-btn.neutral:hover {
+    color: #ffa500;
+    background: rgba(255, 165, 0, 0.25);
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+}
+
+.stat-btn.disliked {
+    color: var(--primary-magenta);
+    background: rgba(230, 45, 232, 0.15);
+    border-color: var(--primary-magenta);
+}
+
+.stat-btn.disliked:hover {
+    color: var(--primary-magenta);
+    background: rgba(230, 45, 232, 0.25);
     box-shadow: var(--magenta-glow);
+}
+
+.user-avatars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.mini-avatar {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 188, 255, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.like-avatars .mini-avatar {
+    border-color: rgba(37, 188, 255, 0.5);
+}
+
+.neutral-avatars .mini-avatar {
+    border-color: rgba(255, 165, 0, 0.5);
+}
+
+.dislike-avatars .mini-avatar {
+    border-color: rgba(230, 45, 232, 0.5);
+}
+
+.mini-avatar:hover {
+    transform: scale(1.2);
+    border-width: 2px;
+    z-index: 10;
+    position: relative;
+}
+
+.like-avatars .mini-avatar:hover {
+    border-color: var(--primary-cyan);
+    box-shadow: var(--cyan-glow);
+}
+
+.neutral-avatars .mini-avatar:hover {
+    border-color: #ffa500;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+}
+
+.dislike-avatars .mini-avatar:hover {
+    border-color: var(--primary-magenta);
+    box-shadow: var(--magenta-glow);
+}
+
+.more-count {
+    font-size: 9px;
+    color: var(--text-secondary);
+    padding: 2px 6px;
+    background: rgba(37, 188, 255, 0.1);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    text-align: center;
+}
+
+.like-group .more-count {
+    background: rgba(37, 188, 255, 0.1);
+    color: var(--primary-cyan);
+}
+
+.neutral-group .more-count {
+    background: rgba(255, 165, 0, 0.1);
+    color: #ffa500;
+}
+
+.dislike-group .more-count {
+    background: rgba(230, 45, 232, 0.1);
+    color: var(--primary-magenta);
 }
 
 /* 评论区域 */
@@ -813,6 +936,34 @@ body {
     .main-content {
         padding: 16px 8px;
     }
+    
+    .action-row {
+        gap: 10px;
+    }
+    
+    .action-group {
+        gap: 6px;
+    }
+    
+    .stat-btn {
+        min-width: 45px;
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    
+    .user-avatars {
+        gap: 2px;
+    }
+    
+    .mini-avatar {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .more-count {
+        font-size: 8px;
+        padding: 1px 4px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -861,6 +1012,27 @@ body {
     
     .footer-btn span {
         font-size: 9px;
+    }
+    
+    .engagement-stats {
+        gap: 12px;
+    }
+    
+    .action-group {
+        gap: 6px;
+    }
+    
+    .mini-avatar {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .user-avatars {
+        gap: 2px;
+    }
+    
+    .more-count {
+        margin-left: 2px;
     }
 }
 

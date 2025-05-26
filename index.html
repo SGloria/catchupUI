@@ -70,21 +70,41 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <button class="stat-btn like-btn" onclick="toggleLike(event, this)">
-                            <i class="far fa-heart"></i>
-                            <span>128</span>
-                        </button>
-                        <button class="stat-btn dislike-btn" onclick="toggleDislike(event, this)">
-                            <i class="far fa-thumbs-down"></i>
-                            <span>3</span>
-                        </button>
-                        <button class="stat-btn comment-btn" onclick="toggleComments(event, this)">
-                            <i class="far fa-comment"></i>
-                            <span>24</span>
-                        </button>
-                        <button class="stat-btn share-btn">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
+                        <div class="action-row">
+                            <div class="action-group like-group">
+                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                    <i class="far fa-thumbs-up"></i>
+                                    <span>128</span>
+                                </button>
+                                <div class="user-avatars like-avatars">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <span class="more-count">+125</span>
+                                </div>
+                            </div>
+                            <div class="action-group neutral-group">
+                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                    <i class="far fa-meh"></i>
+                                    <span>15</span>
+                                </button>
+                                <div class="user-avatars neutral-avatars">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <span class="more-count">+13</span>
+                                </div>
+                            </div>
+                            <div class="action-group dislike-group">
+                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                    <i class="far fa-thumbs-down"></i>
+                                    <span>3</span>
+                                </button>
+                                <div class="user-avatars dislike-avatars">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -152,21 +172,40 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <button class="stat-btn like-btn" onclick="toggleLike(event, this)">
-                            <i class="far fa-heart"></i>
-                            <span>89</span>
-                        </button>
-                        <button class="stat-btn dislike-btn" onclick="toggleDislike(event, this)">
-                            <i class="far fa-thumbs-down"></i>
-                            <span>1</span>
-                        </button>
-                        <button class="stat-btn comment-btn" onclick="toggleComments(event, this)">
-                            <i class="far fa-comment"></i>
-                            <span>15</span>
-                        </button>
-                        <button class="stat-btn share-btn">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
+                        <div class="action-row">
+                            <div class="action-group like-group">
+                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                    <i class="far fa-thumbs-up"></i>
+                                    <span>89</span>
+                                </button>
+                                <div class="user-avatars like-avatars">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <span class="more-count">+88</span>
+                                </div>
+                            </div>
+                            <div class="action-group neutral-group">
+                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                    <i class="far fa-meh"></i>
+                                    <span>1</span>
+                                </button>
+                                <div class="user-avatars neutral-avatars">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                </div>
+                            </div>
+                            <div class="action-group dislike-group">
+                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                    <i class="far fa-thumbs-down"></i>
+                                    <span>1</span>
+                                </button>
+                                <div class="user-avatars dislike-avatars">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -224,21 +263,40 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <button class="stat-btn like-btn liked" onclick="toggleLike(event, this)">
-                            <i class="fas fa-heart"></i>
-                            <span>256</span>
-                        </button>
-                        <button class="stat-btn dislike-btn" onclick="toggleDislike(event, this)">
-                            <i class="far fa-thumbs-down"></i>
-                            <span>5</span>
-                        </button>
-                        <button class="stat-btn comment-btn" onclick="toggleComments(event, this)">
-                            <i class="far fa-comment"></i>
-                            <span>47</span>
-                        </button>
-                        <button class="stat-btn share-btn">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
+                        <div class="action-row">
+                            <div class="action-group like-group">
+                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                    <i class="far fa-thumbs-up"></i>
+                                    <span>256</span>
+                                </button>
+                                <div class="user-avatars like-avatars">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <span class="more-count">+255</span>
+                                </div>
+                            </div>
+                            <div class="action-group neutral-group">
+                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                    <i class="far fa-meh"></i>
+                                    <span>5</span>
+                                </button>
+                                <div class="user-avatars neutral-avatars">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                </div>
+                            </div>
+                            <div class="action-group dislike-group">
+                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                    <i class="far fa-thumbs-down"></i>
+                                    <span>5</span>
+                                </button>
+                                <div class="user-avatars dislike-avatars">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 

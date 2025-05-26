@@ -1,8 +1,7 @@
-// 全局变量
-let currentUser = {
-    id: 1,
-    name: "赛博用户",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+// 当前用户配置
+const currentUser = {
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=24&h=24&fit=crop&crop=face',
+    name: '当前用户'
 };
 
 // DOM 加载完成后初始化
@@ -51,52 +50,126 @@ function addEventListeners() {
     document.querySelectorAll('.nav-btn, .footer-btn').forEach(btn => {
         btn.addEventListener('click', handleNavigation);
     });
-    
-    // 评论展开事件
-    document.querySelectorAll('.comments-header').forEach(header => {
-        header.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const commentsSection = this.parentElement;
-            toggleComments(e, commentsSection);
-        });
-    });
 }
 
-// 点赞功能
-function toggleLike(event, button) {
+// 反应功能（互斥操作）
+function toggleReaction(event, button, reactionType) {
     event.stopPropagation();
     
+    const articleCard = button.closest('.article-card');
+    const actionRow = button.closest('.action-row');
+    const allButtons = actionRow.querySelectorAll('.stat-btn');
+    const currentButton = button;
     const icon = button.querySelector('i');
     const countSpan = button.querySelector('span');
-    let count = parseInt(countSpan.textContent);
+    const actionGroup = button.closest('.action-group');
+    const avatarsContainer = actionGroup.querySelector('.user-avatars');
+    const moreCount = avatarsContainer.querySelector('.more-count');
     
-    if (button.classList.contains('liked')) {
-        // 取消点赞
-        button.classList.remove('liked');
-        icon.className = 'far fa-heart';
-        count--;
+    // 获取当前状态
+    const isCurrentlyActive = button.classList.contains(reactionType === 'like' ? 'liked' : 
+                                                        reactionType === 'neutral' ? 'neutral' : 'disliked');
+    
+    // 清除所有其他按钮的活动状态
+    allButtons.forEach(btn => {
+        const btnGroup = btn.closest('.action-group');
+        const btnIcon = btn.querySelector('i');
+        const btnCount = btn.querySelector('span');
+        const btnAvatars = btnGroup.querySelector('.user-avatars');
+        const btnMoreCount = btnAvatars.querySelector('.more-count');
         
-        // 添加取消点赞动画
-        button.style.transform = 'scale(0.9)';
+        // 移除用户头像（如果存在）
+        const userAvatar = btnAvatars.querySelector('.mini-avatar[alt="当前用户"]');
+        if (userAvatar) {
+            userAvatar.remove();
+            
+            // 更新计数
+            let count = parseInt(btnCount.textContent);
+            count--;
+            btnCount.textContent = count;
+            
+            // 更新更多计数
+            if (btnMoreCount) {
+                let moreCountNum = parseInt(btnMoreCount.textContent.replace('+', ''));
+                moreCountNum--;
+                if (moreCountNum > 0) {
+                    btnMoreCount.textContent = `+${moreCountNum}`;
+                } else {
+                    btnMoreCount.textContent = '';
+                }
+            }
+        }
+        
+        // 移除活动状态
+        btn.classList.remove('liked', 'neutral', 'disliked');
+        
+        // 重置图标
+        if (btn.classList.contains('like-btn')) {
+            btnIcon.className = 'far fa-thumbs-up';
+        } else if (btn.classList.contains('neutral-btn')) {
+            btnIcon.className = 'far fa-meh';
+        } else if (btn.classList.contains('dislike-btn')) {
+            btnIcon.className = 'far fa-thumbs-down';
+        }
+    });
+    
+    // 如果点击的不是当前活动的按钮，则激活它
+    if (!isCurrentlyActive) {
+        let count = parseInt(countSpan.textContent);
+        count++;
+        countSpan.textContent = count;
+        
+        // 添加活动状态
+        if (reactionType === 'like') {
+            button.classList.add('liked');
+            icon.className = 'fas fa-thumbs-up';
+            createReactionParticles(button, '👍');
+        } else if (reactionType === 'neutral') {
+            button.classList.add('neutral');
+            icon.className = 'fas fa-meh';
+            createReactionParticles(button, '😐');
+        } else if (reactionType === 'dislike') {
+            button.classList.add('disliked');
+            icon.className = 'fas fa-thumbs-down';
+            createReactionParticles(button, '👎');
+        }
+        
+        // 添加当前用户的头像
+        const newAvatar = document.createElement('img');
+        newAvatar.src = currentUser.avatar;
+        newAvatar.alt = '当前用户';
+        newAvatar.className = 'mini-avatar';
+        avatarsContainer.insertBefore(newAvatar, avatarsContainer.firstChild);
+        
+        // 更新更多计数
+        if (moreCount) {
+            let moreCountNum = parseInt(moreCount.textContent.replace('+', '')) || 0;
+            moreCountNum++;
+            moreCount.textContent = `+${moreCountNum}`;
+        }
+        
+        // 添加动画效果
+        button.style.transform = 'scale(1.2)';
+        
+        // 头像入场动画
+        newAvatar.style.transform = 'scale(0)';
+        newAvatar.style.opacity = '0';
+        setTimeout(() => {
+            newAvatar.style.transition = 'all 0.3s ease';
+            newAvatar.style.transform = 'scale(1)';
+            newAvatar.style.opacity = '1';
+        }, 50);
+        
         setTimeout(() => {
             button.style.transform = 'scale(1)';
         }, 150);
     } else {
-        // 点赞
-        button.classList.add('liked');
-        icon.className = 'fas fa-heart';
-        count++;
-        
-        // 添加点赞动画和特效
-        button.style.transform = 'scale(1.2)';
-        createHeartParticles(button);
-        
+        // 如果点击的是当前活动的按钮，只是添加一个小的动画反馈
+        button.style.transform = 'scale(0.95)';
         setTimeout(() => {
             button.style.transform = 'scale(1)';
         }, 150);
     }
-    
-    countSpan.textContent = count;
     
     // 触感反馈（如果支持）
     if (navigator.vibrate) {
@@ -104,62 +177,41 @@ function toggleLike(event, button) {
     }
 }
 
-// 点踩功能
-function toggleDislike(event, button) {
-    event.stopPropagation();
+// 创建反应粒子特效
+function createReactionParticles(button, emoji) {
+    const rect = button.getBoundingClientRect();
+    const particleCount = 5;
     
-    const icon = button.querySelector('i');
-    const countSpan = button.querySelector('span');
-    let count = parseInt(countSpan.textContent);
-    
-    if (button.classList.contains('disliked')) {
-        button.classList.remove('disliked');
-        icon.className = 'far fa-thumbs-down';
-        count--;
-    } else {
-        button.classList.add('disliked');
-        icon.className = 'fas fa-thumbs-down';
-        count++;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.innerHTML = emoji;
+        particle.style.position = 'fixed';
+        particle.style.left = rect.left + rect.width / 2 + 'px';
+        particle.style.top = rect.top + rect.height / 2 + 'px';
+        particle.style.fontSize = '16px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9999';
+        particle.style.transition = 'all 1s ease-out';
         
-        // 添加点踩动画
-        button.style.transform = 'scale(1.1)';
-        setTimeout(() => {
-            button.style.transform = 'scale(1)';
-        }, 150);
-    }
-    
-    countSpan.textContent = count;
-}
-
-// 评论展开/收起
-function toggleComments(event, commentsSection) {
-    if (!commentsSection) {
-        commentsSection = event.target.closest('.comments-section');
-    }
-    
-    const commentsList = commentsSection.querySelector('.comments-list');
-    const toggleIcon = commentsSection.querySelector('.comments-toggle i');
-    
-    if (commentsSection.classList.contains('collapsed')) {
-        // 展开评论
-        commentsSection.classList.remove('collapsed');
-        commentsList.style.display = 'block';
-        toggleIcon.style.transform = 'rotate(180deg)';
+        document.body.appendChild(particle);
         
-        // 添加展开动画
-        commentsList.style.opacity = '0';
-        commentsList.style.transform = 'translateY(-10px)';
+        // 随机方向和距离
+        const angle = (i / particleCount) * 2 * Math.PI;
+        const distance = 40 + Math.random() * 20;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
         
         setTimeout(() => {
-            commentsList.style.transition = 'all 0.3s ease';
-            commentsList.style.opacity = '1';
-            commentsList.style.transform = 'translateY(0)';
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            particle.style.opacity = '0';
         }, 10);
-    } else {
-        // 收起评论
-        commentsSection.classList.add('collapsed');
-        commentsList.style.display = 'none';
-        toggleIcon.style.transform = 'rotate(0deg)';
+        
+        // 清理粒子
+        setTimeout(() => {
+            if (document.body.contains(particle)) {
+                document.body.removeChild(particle);
+            }
+        }, 1000);
     }
 }
 
@@ -294,43 +346,6 @@ function handleNavigation(event) {
     
     console.log(`🧭 导航到: ${buttonText}`);
     showNotification(`导航到${buttonText}`, 'info');
-}
-
-// 创建心形粒子效果
-function createHeartParticles(button) {
-    const rect = button.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    const particles = ['💙', '💜', '🩷', '✨', '⭐'];
-    
-    for (let i = 0; i < 8; i++) {
-        const particle = document.createElement('div');
-        particle.innerHTML = particles[Math.floor(Math.random() * particles.length)];
-        particle.style.position = 'fixed';
-        particle.style.left = centerX + 'px';
-        particle.style.top = centerY + 'px';
-        particle.style.fontSize = '12px';
-        particle.style.pointerEvents = 'none';
-        particle.style.zIndex = '9999';
-        particle.style.transition = 'all 0.8s ease-out';
-        
-        document.body.appendChild(particle);
-        
-        // 动画
-        setTimeout(() => {
-            const angle = (i / 8) * Math.PI * 2;
-            const distance = 50 + Math.random() * 30;
-            particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-            particle.style.opacity = '0';
-            particle.style.fontSize = '8px';
-        }, 50);
-        
-        // 清理
-        setTimeout(() => {
-            particle.remove();
-        }, 900);
-    }
 }
 
 // 创建粒子背景
