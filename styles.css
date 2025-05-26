@@ -114,15 +114,14 @@ body {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 26, 0.95));
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px) saturate(150%);
     z-index: 1000;
     
-    /* 彩虹边框效果 */
+    /* 深色毛玻璃效果 */
     box-shadow: 
-        0 0 20px rgba(37, 188, 255, 0.2),
-        inset 0 1px 0 rgba(37, 188, 255, 0.1);
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .header-container {
@@ -795,13 +794,14 @@ body {
     left: 0;
     right: 0;
     height: var(--footer-height);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 26, 0.95));
-    backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px) saturate(150%);
     z-index: 1000;
+    
+    /* 深色毛玻璃效果 */
     box-shadow: 
-        0 0 20px rgba(37, 188, 255, 0.2),
-        inset 0 -1px 0 rgba(37, 188, 255, 0.1);
+        0 -8px 32px rgba(0, 0, 0, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .footer-container {

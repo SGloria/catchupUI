@@ -563,7 +563,6 @@ function handleNavigation(event) {
     }
     
     console.log(`🧭 导航到: ${buttonText}`);
-    showNotification(`导航到${buttonText}`, 'info');
 }
 
 // 显示收藏的文章
@@ -719,7 +718,7 @@ function showNotification(message, type = 'info') {
     notification.style.cssText = `
         position: fixed;
         top: 100px;
-        right: 20px;
+        left: 20px;
         background: linear-gradient(45deg, rgba(37, 188, 255, 0.1), rgba(146, 35, 255, 0.1));
         border: 1px solid #25BCFF;
         border-radius: 8px;
@@ -729,7 +728,7 @@ function showNotification(message, type = 'info') {
         font-size: 12px;
         z-index: 10000;
         backdrop-filter: blur(10px);
-        transform: translateX(100%);
+        transform: translateX(-100%);
         transition: transform 0.3s ease;
         box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
     `;
@@ -743,7 +742,7 @@ function showNotification(message, type = 'info') {
     
     // 自动消失
     setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
+        notification.style.transform = 'translateX(-100%)';
         setTimeout(() => {
             notification.remove();
         }, 300);
