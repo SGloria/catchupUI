@@ -50,6 +50,82 @@ function addEventListeners() {
     document.querySelectorAll('.nav-btn, .footer-btn').forEach(btn => {
         btn.addEventListener('click', handleNavigation);
     });
+    
+    // 评论区域点击事件
+    document.querySelectorAll('.comments-section').forEach(commentsSection => {
+        // 为评论区域添加点击事件，阻止冒泡
+        commentsSection.addEventListener('click', function(event) {
+            event.stopPropagation();
+            toggleComments(this);
+        });
+    });
+    
+    // 为card-actions区域添加点击事件，阻止冒泡
+    document.querySelectorAll('.card-actions').forEach(cardActions => {
+        cardActions.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+}
+
+// 切换评论区域显示状态
+function toggleComments(commentsSection) {
+    const commentsList = commentsSection.querySelector('.comments-list');
+    const toggleIcon = commentsSection.querySelector('.comments-toggle i');
+    const isCollapsed = commentsSection.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+        // 展开评论
+        commentsSection.classList.remove('collapsed');
+        toggleIcon.style.transform = 'rotate(180deg)';
+        
+        // 添加展开动画
+        commentsList.style.maxHeight = '0';
+        commentsList.style.opacity = '0';
+        commentsList.style.overflow = 'hidden';
+        commentsList.style.transition = 'all 0.3s ease';
+        
+        // 强制重绘
+        commentsList.offsetHeight;
+        
+        // 计算实际高度
+        commentsList.style.maxHeight = commentsList.scrollHeight + 'px';
+        commentsList.style.opacity = '1';
+        
+        // 动画完成后移除maxHeight限制
+        setTimeout(() => {
+            commentsList.style.maxHeight = 'none';
+        }, 300);
+        
+    } else {
+        // 收起评论
+        commentsList.style.transition = 'all 0.3s ease';
+        commentsList.style.maxHeight = commentsList.scrollHeight + 'px';
+        commentsList.style.overflow = 'hidden';
+        
+        // 强制重绘
+        commentsList.offsetHeight;
+        
+        commentsList.style.maxHeight = '0';
+        commentsList.style.opacity = '0';
+        
+        setTimeout(() => {
+            commentsSection.classList.add('collapsed');
+            toggleIcon.style.transform = 'rotate(0deg)';
+        }, 300);
+    }
+    
+    // 添加反馈动画
+    const commentsHeader = commentsSection.querySelector('.comments-header');
+    commentsHeader.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+        commentsHeader.style.transform = 'scale(1)';
+    }, 150);
+    
+    // 触感反馈（如果支持）
+    if (navigator.vibrate) {
+        navigator.vibrate(30);
+    }
 }
 
 // 反应功能（互斥操作）
