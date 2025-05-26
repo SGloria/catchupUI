@@ -21,6 +21,9 @@ function initializeApp() {
     // 初始化过滤标签
     initializeFilters();
     
+    // 初始化收藏状态
+    initializeBookmarks();
+    
     // 模拟加载动画
     setTimeout(() => {
         document.body.classList.add('loaded');
@@ -126,6 +129,138 @@ function toggleComments(commentsSection) {
     if (navigator.vibrate) {
         navigator.vibrate(30);
     }
+}
+
+// 收藏文章功能
+let bookmarkedArticles = JSON.parse(localStorage.getItem('bookmarkedArticles')) || [];
+
+function toggleBookmark(event, button) {
+    event.stopPropagation();
+    
+    const articleId = button.getAttribute('data-article-id');
+    const icon = button.querySelector('i');
+    const isBookmarked = button.classList.contains('bookmarked');
+    
+    if (isBookmarked) {
+        // 取消收藏
+        button.classList.remove('bookmarked');
+        icon.className = 'far fa-bookmark';
+        
+        // 从收藏列表中移除
+        bookmarkedArticles = bookmarkedArticles.filter(id => id !== articleId);
+        
+        // 创建取消收藏动画
+        createBookmarkParticles(button, '💔');
+        
+        showNotification('已取消收藏', 'info');
+        
+    } else {
+        // 添加收藏
+        button.classList.add('bookmarked');
+        icon.className = 'fas fa-bookmark';
+        
+        // 添加到收藏列表
+        if (!bookmarkedArticles.includes(articleId)) {
+            bookmarkedArticles.push(articleId);
+        }
+        
+        // 创建收藏动画
+        createBookmarkParticles(button, '❤️');
+        
+        showNotification('已添加到收藏', 'success');
+    }
+    
+    // 保存到本地存储
+    localStorage.setItem('bookmarkedArticles', JSON.stringify(bookmarkedArticles));
+    
+    // 添加按钮动画
+    button.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+        button.style.transform = 'scale(1)';
+    }, 200);
+    
+    // 触感反馈
+    if (navigator.vibrate) {
+        navigator.vibrate(isBookmarked ? 30 : 50);
+    }
+    
+    // 更新收藏页面（如果存在）
+    updateBookmarkPage();
+}
+
+// 创建收藏粒子特效
+function createBookmarkParticles(button, emoji) {
+    const rect = button.getBoundingClientRect();
+    const particleCount = 3;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.innerHTML = emoji;
+        particle.style.position = 'fixed';
+        particle.style.left = rect.left + rect.width / 2 + 'px';
+        particle.style.top = rect.top + rect.height / 2 + 'px';
+        particle.style.fontSize = '14px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9999';
+        particle.style.transition = 'all 1.2s ease-out';
+        
+        document.body.appendChild(particle);
+        
+        // 随机方向和距离
+        const angle = (i / particleCount) * 2 * Math.PI + Math.random() * 0.5;
+        const distance = 30 + Math.random() * 15;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance - 20; // 向上偏移
+        
+        setTimeout(() => {
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            particle.style.opacity = '0';
+        }, 10);
+        
+        // 清理粒子
+        setTimeout(() => {
+            if (document.body.contains(particle)) {
+                document.body.removeChild(particle);
+            }
+        }, 1200);
+    }
+}
+
+// 初始化收藏状态
+function initializeBookmarks() {
+    document.querySelectorAll('.bookmark-btn').forEach(button => {
+        const articleId = button.getAttribute('data-article-id');
+        if (bookmarkedArticles.includes(articleId)) {
+            button.classList.add('bookmarked');
+            button.querySelector('i').className = 'fas fa-bookmark';
+        }
+    });
+}
+
+// 获取收藏的文章列表
+function getBookmarkedArticles() {
+    return bookmarkedArticles.map(id => {
+        const articleCard = document.querySelector(`[data-article-id="${id}"]`).closest('.article-card');
+        if (articleCard) {
+            return {
+                id: id,
+                title: articleCard.querySelector('.card-title').textContent,
+                summary: articleCard.querySelector('.card-summary').textContent,
+                author: articleCard.querySelector('.author-name').textContent,
+                time: articleCard.querySelector('.publish-time').textContent,
+                tag: articleCard.querySelector('.card-tag').textContent,
+                image: articleCard.querySelector('.card-thumbnail img').src
+            };
+        }
+        return null;
+    }).filter(article => article !== null);
+}
+
+// 更新收藏页面
+function updateBookmarkPage() {
+    // 这里可以实现收藏页面的更新逻辑
+    // 例如：如果当前在收藏页面，重新渲染收藏列表
+    console.log('📚 收藏列表已更新:', getBookmarkedArticles());
 }
 
 // 反应功能（互斥操作）
@@ -420,8 +555,52 @@ function handleNavigation(event) {
         button.style.transform = 'scale(1)';
     }, 150);
     
+    // 处理收藏页面
+    if (buttonText === '收藏') {
+        showBookmarkedArticles();
+    } else if (buttonText === '团队') {
+        showAllArticles();
+    }
+    
     console.log(`🧭 导航到: ${buttonText}`);
     showNotification(`导航到${buttonText}`, 'info');
+}
+
+// 显示收藏的文章
+function showBookmarkedArticles() {
+    const articlesGrid = document.querySelector('.articles-grid');
+    const allCards = articlesGrid.querySelectorAll('.article-card');
+    
+    allCards.forEach(card => {
+        const bookmarkBtn = card.querySelector('.bookmark-btn');
+        const articleId = bookmarkBtn.getAttribute('data-article-id');
+        
+        if (bookmarkedArticles.includes(articleId)) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // 显示收藏统计
+    const bookmarkedCount = bookmarkedArticles.length;
+    if (bookmarkedCount === 0) {
+        showNotification('还没有收藏任何文章', 'info');
+    } else {
+        showNotification(`显示 ${bookmarkedCount} 篇收藏文章`, 'success');
+    }
+}
+
+// 显示所有文章
+function showAllArticles() {
+    const articlesGrid = document.querySelector('.articles-grid');
+    const allCards = articlesGrid.querySelectorAll('.article-card');
+    
+    allCards.forEach(card => {
+        card.style.display = 'block';
+        card.style.animation = 'fadeInUp 0.5s ease forwards';
+    });
 }
 
 // 创建粒子背景
