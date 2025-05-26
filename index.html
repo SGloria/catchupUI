@@ -20,15 +20,15 @@
             </div>
             
             <div class="header-actions">
-                <button class="action-btn">
+                <button class="action-btn" onclick="toggleSidebar('search')">
                     <i class="fas fa-search"></i>
                 </button>
-                <button class="action-btn">
+                <button class="action-btn" onclick="toggleSidebar('messages')">
                     <i class="fas fa-bell"></i>
                     <span class="notification-badge">3</span>
                 </button>
-                <button class="action-btn">
-                    <i class="fas fa-plus"></i>
+                <button class="action-btn" onclick="toggleSidebar('filter')">
+                    <i class="fas fa-filter"></i>
                 </button>
             </div>
         </div>
@@ -480,6 +480,205 @@
             </div>
         </div>
     </footer>
+
+    <!-- 侧边栏系统 -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    
+    <!-- 搜索侧边栏 -->
+    <div class="sidebar sidebar-search" id="searchSidebar">
+        <div class="sidebar-header">
+            <h3>搜索</h3>
+            <button class="sidebar-close-btn" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-content">
+            <div class="search-section">
+                <div class="search-input-wrapper">
+                    <input type="text" class="search-input" placeholder="搜索文章、作者或标签...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="search-history-section">
+                <h4>搜索历史</h4>
+                <div class="search-history-list">
+                    <div class="search-history-item">
+                        <i class="fas fa-clock"></i>
+                        <span>React 18</span>
+                        <button class="remove-history-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="search-history-item">
+                        <i class="fas fa-clock"></i>
+                        <span>AI技术</span>
+                        <button class="remove-history-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="search-history-item">
+                        <i class="fas fa-clock"></i>
+                        <span>设计趋势</span>
+                        <button class="remove-history-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="clear-history-btn">清除所有历史</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息侧边栏 -->
+    <div class="sidebar sidebar-messages" id="messagesSidebar">
+        <div class="sidebar-header">
+            <h3>消息</h3>
+            <button class="sidebar-close-btn" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-content">
+            <div class="messages-list">
+                <div class="message-item unread">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=40&h=40&fit=crop&crop=face" alt="用户">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">李小花</span>
+                            <span class="message-time">2小时前</span>
+                        </div>
+                        <div class="message-text">
+                            在文章《GPT-4的突破性进展》中 @了你
+                        </div>
+                        <div class="message-article">
+                            <i class="fas fa-file-text"></i>
+                            <span>GPT-4的突破性进展：人工智能的新里程碑</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">王工程师</span>
+                            <span class="message-time">1天前</span>
+                        </div>
+                        <div class="message-text">
+                            在文章《React 18新特性深度解析》中 @了你
+                        </div>
+                        <div class="message-article">
+                            <i class="fas fa-file-text"></i>
+                            <span>React 18新特性深度解析：并发渲染的魅力</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" alt="用户">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">设计师小美</span>
+                            <span class="message-time">2天前</span>
+                        </div>
+                        <div class="message-text">
+                            在文章《2024年UI/UX设计趋势》中 @了你
+                        </div>
+                        <div class="message-article">
+                            <i class="fas fa-file-text"></i>
+                            <span>2024年UI/UX设计趋势：拥抱极简主义的复兴</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 过滤侧边栏 -->
+    <div class="sidebar sidebar-filter" id="filterSidebar">
+        <div class="sidebar-header">
+            <h3>过滤</h3>
+            <button class="sidebar-close-btn" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-content">
+            <div class="filter-section">
+                <h4>发布时间</h4>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="radio" name="timeFilter" value="1day">
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">过去一天</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="timeFilter" value="3days">
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">过去3天</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="timeFilter" value="1week">
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">过去一周</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="timeFilter" value="1month">
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">过去一个月</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="timeFilter" value="all" checked>
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">全部</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4>已读状态</h4>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="radio" name="readFilter" value="read">
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">已读</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="readFilter" value="unread">
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">未读</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="readFilter" value="all" checked>
+                        <span class="filter-radio"></span>
+                        <span class="filter-label">全部</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4>分享来源</h4>
+                <div class="filter-dropdown">
+                    <select class="source-select">
+                        <option value="all">全部成员</option>
+                        <option value="张明">张明</option>
+                        <option value="设计师小美">设计师小美</option>
+                        <option value="React大师">React大师</option>
+                        <option value="投资达人">投资达人</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="apply-filter-btn">应用过滤</button>
+                <button class="reset-filter-btn">重置</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
