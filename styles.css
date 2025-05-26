@@ -320,11 +320,8 @@ body {
 }
 
 .article-card:hover {
-    transform: translateY(-8px);
     border-color: var(--primary-purple);
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        var(--rainbow-glow);
+    box-shadow: var(--rainbow-glow);
 }
 
 .article-card:hover::before {
@@ -346,11 +343,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.article-card:hover .card-thumbnail img {
-    transform: scale(1.1);
+    transition: none;
 }
 
 .card-overlay {
@@ -368,14 +361,8 @@ body {
     color: var(--primary-cyan);
     font-size: 24px;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: none;
     backdrop-filter: blur(10px);
-}
-
-.article-card:hover .card-overlay {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: var(--cyan-glow);
 }
 
 .card-meta {
@@ -385,6 +372,49 @@ body {
     display: flex;
     gap: 8px;
     align-items: center;
+}
+
+.card-author-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(37, 188, 255, 0.3);
+    z-index: 10;
+}
+
+.card-author-overlay .author-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 188, 255, 0.5);
+    box-shadow: none;
+}
+
+.card-author-overlay .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.card-author-overlay .author-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.card-author-overlay .publish-time {
+    font-size: 9px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    line-height: 1.2;
 }
 
 .card-tag {
@@ -406,83 +436,33 @@ body {
     background: var(--accent-gradient);
 }
 
-.read-time {
-    background: rgba(0, 0, 0, 0.7);
-    color: var(--text-primary);
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 10px;
-    backdrop-filter: blur(10px);
-}
-
 .card-content {
-    padding: 20px;
+    padding: 16px 20px 12px 20px;
 }
 
 .card-title {
     font-size: 18px;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     line-height: 1.4;
-    transition: color 0.3s ease;
-}
-
-.article-card:hover .card-title {
-    background: var(--rainbow-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    transition: none;
 }
 
 .card-summary {
     color: var(--text-secondary);
     font-size: 14px;
     line-height: 1.6;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.card-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.author-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid var(--primary-cyan);
-    box-shadow: var(--cyan-glow);
-}
-
-.author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.author-name {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.publish-time {
-    font-size: 10px;
-    color: var(--text-secondary);
-    font-family: var(--font-mono);
-}
-
 .card-actions {
-    padding: 0 20px 20px;
+    padding: 12px 20px 16px 20px;
     border-top: 1px solid rgba(37, 188, 255, 0.1);
-    padding-top: 16px;
 }
 
 .engagement-stats {
@@ -918,7 +898,7 @@ body {
     }
     
     .card-content {
-        padding: 16px;
+        padding: 12px 16px 8px 16px;
     }
     
     .card-title {
@@ -963,6 +943,24 @@ body {
     .more-count {
         font-size: 8px;
         padding: 1px 4px;
+    }
+    
+    .card-author-overlay {
+        padding: 6px 10px;
+        gap: 6px;
+    }
+    
+    .card-author-overlay .author-avatar {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .card-author-overlay .author-name {
+        font-size: 10px;
+    }
+    
+    .card-author-overlay .publish-time {
+        font-size: 8px;
     }
 }
 
