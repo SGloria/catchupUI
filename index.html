@@ -50,6 +50,9 @@
                             </div>
                         </div>
                         <div class="card-top-actions">
+                            <button class="read-status-btn" onclick="toggleReadStatus(event, this)" data-article-id="1">
+                                <i class="far fa-circle"></i>
+                            </button>
                             <button class="bookmark-btn" onclick="toggleBookmark(event, this)" data-article-id="1">
                                 <i class="far fa-bookmark"></i>
                             </button>
@@ -155,6 +158,9 @@
                             </div>
                         </div>
                         <div class="card-top-actions">
+                            <button class="read-status-btn" onclick="toggleReadStatus(event, this)" data-article-id="2">
+                                <i class="far fa-circle"></i>
+                            </button>
                             <button class="bookmark-btn" onclick="toggleBookmark(event, this)" data-article-id="2">
                                 <i class="far fa-bookmark"></i>
                             </button>
@@ -250,6 +256,9 @@
                             </div>
                         </div>
                         <div class="card-top-actions">
+                            <button class="read-status-btn" onclick="toggleReadStatus(event, this)" data-article-id="3">
+                                <i class="far fa-circle"></i>
+                            </button>
                             <button class="bookmark-btn" onclick="toggleBookmark(event, this)" data-article-id="3">
                                 <i class="far fa-bookmark"></i>
                             </button>
@@ -355,6 +364,9 @@
                             </div>
                         </div>
                         <div class="card-top-actions">
+                            <button class="read-status-btn" onclick="toggleReadStatus(event, this)" data-article-id="4">
+                                <i class="far fa-circle"></i>
+                            </button>
                             <button class="bookmark-btn" onclick="toggleBookmark(event, this)" data-article-id="4">
                                 <i class="far fa-bookmark"></i>
                             </button>
@@ -438,13 +450,9 @@
                 </div>
             </article>
 
-            <!-- 加载更多按钮 -->
-            <div class="load-more-section">
-                <button class="load-more-btn">
-                    <i class="fas fa-download"></i>
-                    <span>加载更多</span>
-                    <div class="cyber-glow"></div>
-                </button>
+            <!-- 没有更多内容提示 -->
+            <div class="no-more-section">
+                <p class="no-more-text">AUV，没有更多内容了！</p>
             </div>
         </div>
     </main>

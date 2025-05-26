@@ -24,6 +24,9 @@ function initializeApp() {
     // 初始化收藏状态
     initializeBookmarks();
     
+    // 初始化已读状态
+    initializeReadStatus();
+    
     // 模拟加载动画
     setTimeout(() => {
         document.body.classList.add('loaded');
@@ -41,12 +44,6 @@ function addEventListeners() {
     const sortSelect = document.querySelector('.cyber-select');
     if (sortSelect) {
         sortSelect.addEventListener('change', handleSortChange);
-    }
-    
-    // 加载更多按钮
-    const loadMoreBtn = document.querySelector('.load-more-btn');
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', loadMoreArticles);
     }
     
     // 导航按钮事件
@@ -261,6 +258,146 @@ function updateBookmarkPage() {
     // 这里可以实现收藏页面的更新逻辑
     // 例如：如果当前在收藏页面，重新渲染收藏列表
     console.log('📚 收藏列表已更新:', getBookmarkedArticles());
+}
+
+// 已读状态功能
+let readArticles = JSON.parse(localStorage.getItem('readArticles')) || [];
+
+function toggleReadStatus(event, button) {
+    event.stopPropagation();
+    
+    const articleId = button.getAttribute('data-article-id');
+    const icon = button.querySelector('i');
+    const isRead = button.classList.contains('read');
+    
+    if (isRead) {
+        // 标记为未读
+        button.classList.remove('read');
+        icon.className = 'far fa-circle';
+        
+        // 从已读列表中移除
+        readArticles = readArticles.filter(id => id !== articleId);
+        
+        // 创建未读动画
+        createReadStatusParticles(button, '📖');
+        
+        showNotification('已标记为未读', 'info');
+        
+    } else {
+        // 标记为已读
+        button.classList.add('read');
+        icon.className = 'fas fa-check-circle';
+        
+        // 添加到已读列表
+        if (!readArticles.includes(articleId)) {
+            readArticles.push(articleId);
+        }
+        
+        // 创建已读动画
+        createReadStatusParticles(button, '✅');
+        
+        showNotification('已标记为已读', 'success');
+    }
+    
+    // 保存到本地存储
+    localStorage.setItem('readArticles', JSON.stringify(readArticles));
+    
+    // 添加按钮动画
+    button.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+        button.style.transform = 'scale(1)';
+    }, 200);
+    
+    // 触感反馈
+    if (navigator.vibrate) {
+        navigator.vibrate(isRead ? 30 : 50);
+    }
+    
+    // 更新视觉状态
+    updateArticleReadState(articleId, !isRead);
+}
+
+// 创建已读状态粒子特效
+function createReadStatusParticles(button, emoji) {
+    const rect = button.getBoundingClientRect();
+    const particleCount = 3;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.innerHTML = emoji;
+        particle.style.position = 'fixed';
+        particle.style.left = rect.left + rect.width / 2 + 'px';
+        particle.style.top = rect.top + rect.height / 2 + 'px';
+        particle.style.fontSize = '14px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9999';
+        particle.style.transition = 'all 1.2s ease-out';
+        
+        document.body.appendChild(particle);
+        
+        // 随机方向和距离
+        const angle = (i / particleCount) * 2 * Math.PI + Math.random() * 0.5;
+        const distance = 30 + Math.random() * 15;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance - 20; // 向上偏移
+        
+        setTimeout(() => {
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            particle.style.opacity = '0';
+        }, 10);
+        
+        // 清理粒子
+        setTimeout(() => {
+            if (document.body.contains(particle)) {
+                document.body.removeChild(particle);
+            }
+        }, 1200);
+    }
+}
+
+// 更新文章的已读视觉状态
+function updateArticleReadState(articleId, isRead) {
+    const articleCard = document.querySelector(`[data-article-id="${articleId}"]`).closest('.article-card');
+    if (articleCard) {
+        if (isRead) {
+            articleCard.style.opacity = '0.7';
+            articleCard.querySelector('.card-title').style.color = 'var(--text-secondary)';
+        } else {
+            articleCard.style.opacity = '1';
+            articleCard.querySelector('.card-title').style.color = 'var(--text-primary)';
+        }
+    }
+}
+
+// 初始化已读状态
+function initializeReadStatus() {
+    document.querySelectorAll('.read-status-btn').forEach(button => {
+        const articleId = button.getAttribute('data-article-id');
+        if (readArticles.includes(articleId)) {
+            button.classList.add('read');
+            button.querySelector('i').className = 'fas fa-check-circle';
+            updateArticleReadState(articleId, true);
+        }
+    });
+}
+
+// 获取已读文章列表
+function getReadArticles() {
+    return readArticles.map(id => {
+        const articleCard = document.querySelector(`[data-article-id="${id}"]`).closest('.article-card');
+        if (articleCard) {
+            return {
+                id: id,
+                title: articleCard.querySelector('.card-title').textContent,
+                summary: articleCard.querySelector('.card-summary').textContent,
+                author: articleCard.querySelector('.author-name').textContent,
+                time: articleCard.querySelector('.publish-time').textContent,
+                tag: articleCard.querySelector('.card-tag').textContent,
+                image: articleCard.querySelector('.card-thumbnail img').src
+            };
+        }
+        return null;
+    }).filter(article => article !== null);
 }
 
 // 反应功能（互斥操作）
@@ -513,29 +650,6 @@ function handleSortChange(event) {
     }, 500);
 }
 
-// 加载更多文章
-function loadMoreArticles() {
-    const loadMoreBtn = document.querySelector('.load-more-btn');
-    const originalText = loadMoreBtn.innerHTML;
-    
-    // 显示加载状态
-    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>加载中...</span>';
-    loadMoreBtn.disabled = true;
-    
-    // 模拟网络请求
-    setTimeout(() => {
-        // 这里可以添加新的文章卡片
-        console.log('📦 加载更多文章');
-        
-        // 恢复按钮状态
-        loadMoreBtn.innerHTML = originalText;
-        loadMoreBtn.disabled = false;
-        
-        // 显示成功提示
-        showNotification('已加载更多文章', 'success');
-    }, 2000);
-}
-
 // 导航功能
 function handleNavigation(event) {
     const button = event.currentTarget;
@@ -586,8 +700,6 @@ function showBookmarkedArticles() {
     const bookmarkedCount = bookmarkedArticles.length;
     if (bookmarkedCount === 0) {
         showNotification('还没有收藏任何文章', 'info');
-    } else {
-        showNotification(`显示 ${bookmarkedCount} 篇收藏文章`, 'success');
     }
 }
 
@@ -720,7 +832,7 @@ function showNotification(message, type = 'info') {
         top: 100px;
         left: 20px;
         background: linear-gradient(45deg, rgba(37, 188, 255, 0.1), rgba(146, 35, 255, 0.1));
-        border: 1px solid #25BCFF;
+        border: none;
         border-radius: 8px;
         padding: 12px 16px;
         color: #ffffff;
@@ -780,13 +892,13 @@ style.textContent = `
     }
     
     .cyber-notification.success {
-        border-color: #25BCFF;
+        border: none;
         color: #25BCFF;
         box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
     }
     
     .cyber-notification.error {
-        border-color: #FF0DC0;
+        border: none;
         color: #FF0DC0;
         box-shadow: 0 0 20px rgba(255, 13, 192, 0.3);
     }
