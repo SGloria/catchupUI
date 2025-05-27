@@ -167,24 +167,126 @@
             backdrop-filter: blur(10px);
         }
         
-        .comment-form {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(37, 188, 255, 0.1);
+        /* 评论列表重新设计 */
+        .comments-list {
+            max-width: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comment-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 188, 255, 0.02), rgba(146, 35, 255, 0.02));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .comment-item:hover::before {
+            opacity: 1;
+        }
+
+        .comment-item:hover {
+            border-color: rgba(37, 188, 255, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .comment-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(37, 188, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .comment-item:hover .comment-avatar {
+            border-color: rgba(37, 188, 255, 0.4);
+            box-shadow: 0 0 15px rgba(37, 188, 255, 0.2);
+        }
+
+        .comment-content {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .comment-time {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            font-family: var(--font-mono);
+        }
+
+        .comment-text {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            font-size: 14px;
+            margin: 0;
+            word-wrap: break-word;
         }
         
+        .comment-form {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-form:hover {
+            border-color: rgba(37, 188, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
         .comment-input {
             width: 100%;
-            background: rgba(26, 26, 46, 0.8);
-            border: 1px solid rgba(37, 188, 255, 0.3);
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(37, 188, 255, 0.2);
             border-radius: 8px;
             padding: 15px;
             color: #ffffff;
             font-family: var(--font-primary);
             font-size: 14px;
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
         
         .comment-input:focus {
@@ -426,6 +528,195 @@
             .float-count {
                 font-size: 9px;
             }
+
+            /* 移动端引用样式 */
+            .quote-display {
+                padding: 10px;
+                margin-bottom: 12px;
+            }
+
+            .quote-header {
+                font-size: 11px;
+            }
+
+            .quote-content {
+                font-size: 12px;
+                padding-left: 8px;
+            }
+
+            /* 移动端评论列表样式 */
+            .comment-item {
+                grid-template-columns: 40px 1fr;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .comment-avatar {
+                width: 40px;
+                height: 40px;
+            }
+
+            .comment-author {
+                font-size: 14px;
+            }
+
+            .comment-time {
+                font-size: 11px;
+            }
+
+            .comment-text {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .quoted-text {
+                font-size: 11px;
+                padding-left: 15px;
+            }
+
+            .comment-form {
+                padding: 16px;
+            }
+
+            .comment-form-actions {
+                flex-direction: column;
+                gap: 8px;
+                align-items: stretch;
+            }
+
+            .quote-btn {
+                padding: 8px 12px;
+                font-size: 13px;
+                justify-content: center;
+            }
+        }
+
+        /* 引用功能样式 */
+        .quote-display {
+            background: rgba(146, 35, 255, 0.05);
+            border: 1px solid rgba(146, 35, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .quote-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: rgba(146, 35, 255, 0.8);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .clear-quote-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            margin-left: auto;
+            transition: all 0.3s ease;
+        }
+
+        .clear-quote-btn:hover {
+            color: rgba(146, 35, 255, 0.8);
+            background: rgba(146, 35, 255, 0.1);
+        }
+
+        .quote-content {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            line-height: 1.5;
+            font-size: 13px;
+            border-left: 2px solid rgba(146, 35, 255, 0.4);
+            padding-left: 10px;
+        }
+
+        .comment-form-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .quote-btn {
+            background: rgba(146, 35, 255, 0.2);
+            border: 1px solid rgba(146, 35, 255, 0.4);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--primary-purple);
+            font-family: var(--font-primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quote-btn:hover {
+            background: rgba(146, 35, 255, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(146, 35, 255, 0.3);
+        }
+
+        .quote-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 评论中的引用样式 */
+        .comment-quote {
+            background: rgba(146, 35, 255, 0.05);
+            border: 1px solid rgba(146, 35, 255, 0.1);
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .quote-indicator {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            color: rgba(146, 35, 255, 0.6);
+            font-size: 10px;
+        }
+
+        .quoted-text {
+            color: rgba(255, 255, 255, 0.65);
+            font-style: italic;
+            line-height: 1.4;
+            font-size: 12px;
+            padding-left: 18px;
+            border-left: 2px solid rgba(146, 35, 255, 0.3);
+            margin-left: 6px;
+        }
+
+        /* 文章内容选中效果 */
+        .article-content ::selection {
+            background: rgba(146, 35, 255, 0.3);
+            color: white;
+        }
+
+        .article-content ::-moz-selection {
+            background: rgba(146, 35, 255, 0.3);
+            color: white;
+        }
+
+        /* 选中文本高亮效果 */
+        .text-selected {
+            background: rgba(146, 35, 255, 0.2) !important;
+            border-radius: 4px;
+            padding: 2px 4px;
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -438,9 +729,6 @@
             </button>
             
             <div class="header-actions">
-                <button class="action-btn">
-                    <i class="fas fa-search"></i>
-                </button>
             </div>
         </div>
     </header>
@@ -541,33 +829,46 @@ function UserProfile({ user }) {
             
             <!-- 评论表单 -->
             <div class="comment-form">
-                <textarea class="comment-input" placeholder="写下你的想法..."></textarea>
-                <button class="submit-btn">
-                    <i class="fas fa-paper-plane"></i>
-                    发表评论
-                </button>
+                <!-- 引用显示区域 -->
+                <div class="quote-display" id="quoteDisplay" style="display: none;">
+                    <div class="quote-header">
+                        <i class="fas fa-quote-left"></i>
+                        <span>引用文章内容</span>
+                        <button class="clear-quote-btn" onclick="clearQuote()" title="清除引用">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="quote-content" id="quoteContent"></div>
+                </div>
+                <textarea class="comment-input" placeholder="写下你的想法...（选中文章内容后可引用）"></textarea>
+                <div class="comment-form-actions">
+                    <button class="quote-btn" onclick="handleQuoteSelection()" title="引用选中内容">
+                        <i class="fas fa-quote-right"></i>
+                        <span>引用选中文本</span>
+                    </button>
+                    <button class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        发表评论
+                    </button>
+                </div>
             </div>
 
             <!-- 评论列表 -->
             <div class="comments-list">
                 <div class="comment-item">
-                    <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=32&h=32&fit=crop&crop=face" alt="用户" class="comment-avatar">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=48&h=48&fit=crop&crop=face" alt="用户" class="comment-avatar">
                     <div class="comment-content">
                         <div class="comment-header">
                             <span class="comment-author">李小花</span>
                             <span class="comment-time">1小时前</span>
                         </div>
-                        <p class="comment-text">这篇文章写得很好，对GPT-4的分析很深入！特别是对技术架构的解释，让我这个非技术人员也能理解。期待看到更多关于AI发展的文章。</p>
-                        <div class="comment-actions" style="margin-top: 8px;">
-                            <button class="stat-btn" style="font-size: 10px; padding: 4px 8px;">
-                                <i class="far fa-heart"></i>
-                                <span>12</span>
-                            </button>
-                            <button class="stat-btn" style="font-size: 10px; padding: 4px 8px;">
-                                <i class="fas fa-reply"></i>
-                                <span>回复</span>
-                            </button>
+                        <div class="comment-quote">
+                            <div class="quote-indicator">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <div class="quoted-text">GPT-4采用了全新的Transformer架构优化，相比GPT-3.5，其参数规模和训练数据量都有了显著提升。</div>
                         </div>
+                        <p class="comment-text">这篇文章写得很好，对GPT-4的分析很深入！特别是对技术架构的解释，让我这个非技术人员也能理解。期待看到更多关于AI发展的文章。</p>
                     </div>
                 </div>
 
@@ -579,16 +880,6 @@ function UserProfile({ user }) {
                             <span class="comment-time">30分钟前</span>
                         </div>
                         <p class="comment-text">作为一名AI工程师，我觉得这篇文章对GPT-4的技术分析很到位。多模态能力确实是一个重大突破，期待更多关于AI技术的深度解析。</p>
-                        <div class="comment-actions" style="margin-top: 8px;">
-                            <button class="stat-btn" style="font-size: 10px; padding: 4px 8px;">
-                                <i class="far fa-heart"></i>
-                                <span>8</span>
-                            </button>
-                            <button class="stat-btn" style="font-size: 10px; padding: 4px 8px;">
-                                <i class="fas fa-reply"></i>
-                                <span>回复</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -599,17 +890,13 @@ function UserProfile({ user }) {
                             <span class="comment-author">设计师小美</span>
                             <span class="comment-time">15分钟前</span>
                         </div>
-                        <p class="comment-text">从设计师的角度来看，GPT-4的多模态能力为创意工作带来了新的可能性。希望能看到更多关于AI在创意领域应用的内容。</p>
-                        <div class="comment-actions" style="margin-top: 8px;">
-                            <button class="stat-btn" style="font-size: 10px; padding: 4px 8px;">
-                                <i class="far fa-heart"></i>
-                                <span>5</span>
-                            </button>
-                            <button class="stat-btn" style="font-size: 10px; padding: 4px 8px;">
-                                <i class="fas fa-reply"></i>
-                                <span>回复</span>
-                            </button>
+                        <div class="comment-quote">
+                            <div class="quote-indicator">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <div class="quoted-text">GPT-4可以作为个性化的学习助手，根据学生的学习进度和理解能力，提供定制化的教学内容和练习题目。</div>
                         </div>
+                        <p class="comment-text">从设计师的角度来看，GPT-4的多模态能力为创意工作带来了新的可能性。希望能看到更多关于AI在创意领域应用的内容。</p>
                     </div>
                 </div>
             </div>
@@ -631,12 +918,12 @@ function UserProfile({ user }) {
                 <i class="far fa-thumbs-down"></i>
                 <span class="float-count">3</span>
             </button>
-            <button class="float-btn bookmark-float" onclick="toggleBookmark(event, this)" data-article-id="article-1">
-                <i class="far fa-bookmark"></i>
-            </button>
             <button class="float-btn comment-float" onclick="scrollToComments(event, this)">
                 <i class="far fa-comment"></i>
                 <span class="float-count">24</span>
+            </button>
+            <button class="float-btn bookmark-float" onclick="toggleBookmark(event, this)" data-article-id="article-1">
+                <i class="far fa-bookmark"></i>
             </button>
             <button class="float-btn share-float" onclick="shareArticle(event, this)">
                 <i class="fas fa-share-alt"></i>
@@ -692,6 +979,10 @@ function UserProfile({ user }) {
 
             // 初始化滚动检测
             initScrollDetection();
+
+            // 初始化引用功能
+            initQuoteSelection();
+            updateQuoteButtonState();
         });
 
         // 滚动检测功能
@@ -738,6 +1029,92 @@ function UserProfile({ user }) {
             
             // 监听滚动事件
             window.addEventListener('scroll', throttleScroll, { passive: true });
+        }
+
+        // 文章文本选择和引用功能
+        let selectedText = '';
+        let selectedElement = null;
+
+        function initQuoteSelection() {
+            const articleContent = document.querySelector('.article-content');
+            
+            // 监听文本选择
+            document.addEventListener('selectionchange', function() {
+                const selection = window.getSelection();
+                const text = selection.toString().trim();
+                
+                if (text && selection.anchorNode) {
+                    // 检查选中的文本是否在文章内容区域
+                    const isInArticle = articleContent.contains(selection.anchorNode);
+                    
+                    if (isInArticle && text.length > 10) { // 至少10个字符才能引用
+                        selectedText = text;
+                        selectedElement = selection.getRangeAt(0);
+                        updateQuoteButtonState();
+                    } else {
+                        selectedText = '';
+                        selectedElement = null;
+                        updateQuoteButtonState();
+                    }
+                } else {
+                    selectedText = '';
+                    selectedElement = null;
+                    updateQuoteButtonState();
+                }
+            });
+        }
+
+        function updateQuoteButtonState() {
+            const quoteBtn = document.querySelector('.quote-btn');
+            if (selectedText) {
+                quoteBtn.disabled = false;
+                quoteBtn.innerHTML = '<i class="fas fa-quote-right"></i><span>引用选中文本</span>';
+                quoteBtn.style.opacity = '1';
+            } else {
+                quoteBtn.disabled = true;
+                quoteBtn.innerHTML = '<i class="fas fa-quote-right"></i><span>引用文章内容</span>';
+                quoteBtn.style.opacity = '0.6';
+            }
+        }
+
+        function handleQuoteSelection() {
+            if (!selectedText) {
+                showNotification('请先选择文章中的文本内容', 'error');
+                return;
+            }
+
+            const quoteDisplay = document.getElementById('quoteDisplay');
+            const quoteContent = document.getElementById('quoteContent');
+            
+            // 显示引用区域
+            quoteDisplay.style.display = 'block';
+            quoteContent.textContent = selectedText;
+            
+            // 清除选择
+            window.getSelection().removeAllRanges();
+            selectedText = '';
+            selectedElement = null;
+            updateQuoteButtonState();
+            
+            // 滚动到评论区
+            setTimeout(() => {
+                quoteDisplay.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 100);
+            
+            showNotification('已添加引用内容', 'success');
+        }
+
+        function clearQuote() {
+            const quoteDisplay = document.getElementById('quoteDisplay');
+            const quoteContent = document.getElementById('quoteContent');
+            
+            quoteDisplay.style.display = 'none';
+            quoteContent.textContent = '';
+            
+            showNotification('已清除引用内容', 'info');
         }
 
         // 滚动到评论区功能
