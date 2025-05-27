@@ -12,40 +12,44 @@
         .back-btn-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
             background: transparent;
-            border: 1px solid rgba(37, 188, 255, 0.3);
+            border: none;
             color: var(--text-primary);
-            border-radius: 8px;
+            border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: var(--font-primary);
-            font-size: 14px;
+            font-size: 16px;
             position: relative;
             overflow: hidden;
         }
 
         .back-btn-header:hover {
-            border-color: var(--primary-cyan);
-            box-shadow: var(--cyan-glow);
-            transform: translateY(-2px);
+            background: rgba(37, 188, 255, 0.1);
             color: var(--primary-cyan);
+            transform: scale(1.1);
+            box-shadow: var(--cyan-glow);
         }
 
-        .back-btn-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(37, 188, 255, 0.1), transparent);
-            transition: left 0.5s ease;
+        /* 文章页专用的顶部栏毛玻璃效果 */
+        .cyber-header {
+            background: rgba(0, 0, 0, 0.7) !important;
+            backdrop-filter: blur(20px) saturate(120%) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .back-btn-header:hover::before {
-            left: 100%;
+        /* 隐藏底部导航栏 */
+        .cyber-footer {
+            display: none !important;
+        }
+
+        /* 调整主内容区域，移除底部边距 */
+        .main-content {
+            margin-bottom: 0 !important;
+            min-height: calc(100vh - var(--header-height)) !important;
         }
 
         .article-header {
@@ -205,6 +209,183 @@
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(37, 188, 255, 0.4);
         }
+
+        /* 底部悬浮岛样式 */
+        .floating-actions {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 滚动隐藏效果 */
+        .cyber-header.scroll-hidden {
+            transform: translateY(-100%);
+        }
+
+        .floating-actions.scroll-hidden {
+            transform: translateX(-50%) translateY(120px);
+            opacity: 0;
+        }
+
+        .floating-island {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 12px 20px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(37, 188, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            pointer-events: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-island:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 48px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(37, 188, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .float-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            min-width: 44px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .float-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(37, 188, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .float-btn:hover::before {
+            opacity: 1;
+        }
+
+        .float-btn:hover {
+            color: var(--primary-cyan);
+            transform: scale(1.1);
+        }
+
+        .float-btn.active {
+            color: var(--primary-cyan);
+            background: rgba(37, 188, 255, 0.15);
+        }
+
+        .float-btn.active::before {
+            opacity: 1;
+        }
+
+        /* 特定按钮样式 */
+        .like-float.active {
+            color: var(--primary-cyan);
+        }
+
+        .like-float.active i {
+            animation: pulse-like 0.6s ease;
+        }
+
+        .neutral-float.active {
+            color: #ffa500;
+        }
+
+        .neutral-float.active i {
+            animation: pulse-neutral 0.6s ease;
+        }
+
+        .dislike-float.active {
+            color: var(--primary-magenta);
+        }
+
+        .dislike-float.active i {
+            animation: pulse-dislike 0.6s ease;
+        }
+
+        .bookmark-float.active {
+            color: var(--primary-cyan);
+        }
+
+        .bookmark-float.active i {
+            animation: pulse-bookmark 0.6s ease;
+        }
+
+        .comment-float:hover {
+            color: var(--primary-purple);
+        }
+
+        .comment-float.active {
+            color: var(--primary-purple);
+        }
+
+        .comment-float.active i {
+            animation: pulse-comment 0.6s ease;
+        }
+
+        .share-float:hover {
+            color: var(--primary-purple);
+        }
+
+        .float-count {
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            font-family: var(--font-mono);
+        }
+
+        /* 动画效果 */
+        @keyframes pulse-like {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes pulse-neutral {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes pulse-dislike {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes pulse-bookmark {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes pulse-comment {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
         
         @media (max-width: 768px) {
             .article-header, .article-content, .article-actions, .comments-section-article {
@@ -220,8 +401,30 @@
             }
             
             .back-btn-header {
-                padding: 10px 14px;
+                width: 36px;
+                height: 36px;
                 font-size: 12px;
+            }
+
+            /* 移动端悬浮岛样式 */
+            .floating-actions {
+                bottom: 15px;
+            }
+
+            .floating-island {
+                gap: 6px;
+                padding: 10px 16px;
+                border-radius: 40px;
+            }
+
+            .float-btn {
+                padding: 6px;
+                font-size: 14px;
+                min-width: 36px;
+            }
+
+            .float-count {
+                font-size: 9px;
             }
         }
     </style>
@@ -232,7 +435,6 @@
         <div class="header-container">
             <button class="back-btn-header" onclick="goBack()">
                 <i class="fas fa-arrow-left"></i>
-                <span>返回</span>
             </button>
             
             <div class="header-actions">
@@ -331,28 +533,6 @@ function UserProfile({ user }) {
             <p>然而，我们也需要保持理性和谨慎，在享受AI带来便利的同时，也要关注其可能带来的挑战和风险，确保技术的发展能够真正造福人类。</p>
         </div>
 
-        <!-- 文章操作区 -->
-        <div class="article-actions">
-            <div class="engagement-stats">
-                <button class="stat-btn like-btn" onclick="toggleLike(event, this)">
-                    <i class="far fa-heart"></i>
-                    <span>128</span>
-                </button>
-                <button class="stat-btn dislike-btn" onclick="toggleDislike(event, this)">
-                    <i class="far fa-thumbs-down"></i>
-                    <span>3</span>
-                </button>
-                <button class="stat-btn share-btn">
-                    <i class="fas fa-share-alt"></i>
-                    <span>分享</span>
-                </button>
-                <button class="stat-btn">
-                    <i class="fas fa-bookmark"></i>
-                    <span>收藏</span>
-                </button>
-            </div>
-        </div>
-
         <!-- 评论区域 -->
         <div class="comments-section-article">
             <h3 style="color: var(--cyber-blue); margin-bottom: 20px; font-size: 20px;">
@@ -436,6 +616,34 @@ function UserProfile({ user }) {
         </div>
     </main>
 
+    <!-- 底部悬浮岛 -->
+    <div class="floating-actions">
+        <div class="floating-island">
+            <button class="float-btn like-float" onclick="toggleReaction(event, this, 'like')" data-reaction="like">
+                <i class="far fa-thumbs-up"></i>
+                <span class="float-count">128</span>
+            </button>
+            <button class="float-btn neutral-float" onclick="toggleReaction(event, this, 'neutral')" data-reaction="neutral">
+                <i class="far fa-meh"></i>
+                <span class="float-count">15</span>
+            </button>
+            <button class="float-btn dislike-float" onclick="toggleReaction(event, this, 'dislike')" data-reaction="dislike">
+                <i class="far fa-thumbs-down"></i>
+                <span class="float-count">3</span>
+            </button>
+            <button class="float-btn bookmark-float" onclick="toggleBookmark(event, this)" data-article-id="article-1">
+                <i class="far fa-bookmark"></i>
+            </button>
+            <button class="float-btn comment-float" onclick="scrollToComments(event, this)">
+                <i class="far fa-comment"></i>
+                <span class="float-count">24</span>
+            </button>
+            <button class="float-btn share-float" onclick="shareArticle(event, this)">
+                <i class="fas fa-share-alt"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- 底部导航栏 -->
     <footer class="cyber-footer">
         <div class="footer-container">
@@ -481,7 +689,90 @@ function UserProfile({ user }) {
                     el.style.transform = 'translateY(0)';
                 }, index * 200);
             });
+
+            // 初始化滚动检测
+            initScrollDetection();
         });
+
+        // 滚动检测功能
+        function initScrollDetection() {
+            let lastScrollY = window.pageYOffset;
+            let isScrolling = false;
+            const header = document.querySelector('.cyber-header');
+            const floatingActions = document.querySelector('.floating-actions');
+            const scrollThreshold = 10; // 滚动阈值
+            
+            function handleScroll() {
+                const currentScrollY = window.pageYOffset;
+                const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+                
+                // 只在滚动足够距离时才处理
+                if (scrollDifference < scrollThreshold) {
+                    return;
+                }
+                
+                // 检测滚动方向
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    // 向下滚动且超过100px - 隐藏
+                    header.classList.add('scroll-hidden');
+                    floatingActions.classList.add('scroll-hidden');
+                } else if (currentScrollY < lastScrollY) {
+                    // 向上滚动 - 显示
+                    header.classList.remove('scroll-hidden');
+                    floatingActions.classList.remove('scroll-hidden');
+                }
+                
+                lastScrollY = currentScrollY;
+            }
+            
+            // 使用防抖来优化性能
+            function throttleScroll() {
+                if (!isScrolling) {
+                    requestAnimationFrame(() => {
+                        handleScroll();
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            }
+            
+            // 监听滚动事件
+            window.addEventListener('scroll', throttleScroll, { passive: true });
+        }
+
+        // 滚动到评论区功能
+        function scrollToComments(event, button) {
+            event.stopPropagation();
+            
+            const commentsSection = document.querySelector('.comments-section-article');
+            if (commentsSection) {
+                // 平滑滚动到评论区
+                commentsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // 添加动画效果
+                button.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+                
+                // 短暂激活状态
+                button.classList.add('active');
+                setTimeout(() => {
+                    button.classList.remove('active');
+                }, 300);
+                
+                // 创建粒子特效
+                createFloatingParticles(button, '💬');
+                
+                // 触感反馈
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
+            }
+        }
 
         // 评论提交功能
         document.querySelector('.submit-btn').addEventListener('click', function() {
@@ -498,6 +789,174 @@ function UserProfile({ user }) {
                 showNotification('请输入评论内容', 'error');
             }
         });
+
+        // 悬浮岛反应功能（互斥）
+        function toggleReaction(event, button, reactionType) {
+            event.stopPropagation();
+            
+            const allReactionBtns = document.querySelectorAll('.like-float, .neutral-float, .dislike-float');
+            const countSpan = button.querySelector('.float-count');
+            const icon = button.querySelector('i');
+            
+            // 检查当前按钮是否已激活
+            const isCurrentlyActive = button.classList.contains('active');
+            
+            // 清除所有反应按钮的激活状态
+            allReactionBtns.forEach(btn => {
+                if (btn.classList.contains('active')) {
+                    btn.classList.remove('active');
+                    const btnIcon = btn.querySelector('i');
+                    const btnCount = btn.querySelector('.float-count');
+                    
+                    // 减少计数
+                    let count = parseInt(btnCount.textContent);
+                    count = Math.max(0, count - 1);
+                    btnCount.textContent = count;
+                    
+                    // 重置图标
+                    if (btn.classList.contains('like-float')) {
+                        btnIcon.className = 'far fa-thumbs-up';
+                    } else if (btn.classList.contains('neutral-float')) {
+                        btnIcon.className = 'far fa-meh';
+                    } else if (btn.classList.contains('dislike-float')) {
+                        btnIcon.className = 'far fa-thumbs-down';
+                    }
+                }
+            });
+            
+            // 如果当前按钮之前没有激活，则激活它
+            if (!isCurrentlyActive) {
+                button.classList.add('active');
+                let count = parseInt(countSpan.textContent);
+                count++;
+                countSpan.textContent = count;
+                
+                // 更新图标和创建特效
+                if (reactionType === 'like') {
+                    icon.className = 'fas fa-thumbs-up';
+                    createFloatingParticles(button, '👍');
+                } else if (reactionType === 'neutral') {
+                    icon.className = 'fas fa-meh';
+                    createFloatingParticles(button, '😐');
+                } else if (reactionType === 'dislike') {
+                    icon.className = 'fas fa-thumbs-down';
+                    createFloatingParticles(button, '👎');
+                }
+            }
+            
+            // 触感反馈
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        // 收藏功能
+        function toggleBookmark(event, button) {
+            event.stopPropagation();
+            
+            const icon = button.querySelector('i');
+            const isBookmarked = button.classList.contains('active');
+            
+            if (isBookmarked) {
+                // 取消收藏
+                button.classList.remove('active');
+                icon.className = 'far fa-bookmark';
+                createFloatingParticles(button, '💔');
+                showNotification('已取消收藏', 'info');
+            } else {
+                // 添加收藏
+                button.classList.add('active');
+                icon.className = 'fas fa-bookmark';
+                createFloatingParticles(button, '❤️');
+                showNotification('已添加到收藏', 'success');
+            }
+            
+            // 触感反馈
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        // 分享功能
+        function shareArticle(event, button) {
+            event.stopPropagation();
+            
+            const title = document.querySelector('.article-title').textContent;
+            const url = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    url: url
+                }).then(() => {
+                    showNotification('分享成功！', 'success');
+                }).catch((error) => {
+                    console.log('分享失败:', error);
+                    fallbackShare(title, url);
+                });
+            } else {
+                fallbackShare(title, url);
+            }
+            
+            // 添加动画效果
+            button.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
+            
+            createFloatingParticles(button, '📤');
+        }
+
+        // 分享备用方案
+        function fallbackShare(title, url) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showNotification('链接已复制到剪贴板', 'success');
+                }).catch(() => {
+                    showNotification('分享失败', 'error');
+                });
+            } else {
+                showNotification('分享失败', 'error');
+            }
+        }
+
+        // 创建悬浮粒子特效
+        function createFloatingParticles(button, emoji) {
+            const rect = button.getBoundingClientRect();
+            const particleCount = 3;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = emoji;
+                particle.style.position = 'fixed';
+                particle.style.left = rect.left + rect.width / 2 + 'px';
+                particle.style.top = rect.top + rect.height / 2 + 'px';
+                particle.style.fontSize = '16px';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '10000';
+                particle.style.transition = 'all 1.2s ease-out';
+                
+                document.body.appendChild(particle);
+                
+                // 随机方向和距离
+                const angle = (i / particleCount) * 2 * Math.PI + Math.random() * 0.5;
+                const distance = 40 + Math.random() * 20;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance - 30; // 向上偏移
+                
+                setTimeout(() => {
+                    particle.style.transform = `translate(${x}px, ${y}px)`;
+                    particle.style.opacity = '0';
+                }, 10);
+                
+                // 清理粒子
+                setTimeout(() => {
+                    if (document.body.contains(particle)) {
+                        document.body.removeChild(particle);
+                    }
+                }, 1200);
+            }
+        }
     </script>
 </body>
 </html> 
