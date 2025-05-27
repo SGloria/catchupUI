@@ -933,14 +933,259 @@ function handleNavigation(event) {
         button.style.transform = 'scale(1)';
     }, 150);
     
-    // 处理收藏页面
-    if (buttonText === '收藏') {
+    // 页面切换逻辑
+    const articlesGrid = document.querySelector('.articles-grid');
+    const userProfilePage = document.querySelector('.user-profile-page');
+    
+    if (buttonText === '我的') {
+        // 显示用户详情页面
+        showUserProfilePage();
+    } else if (buttonText === '收藏') {
+        // 显示收藏页面
+        hideUserProfilePage();
         showBookmarkedArticles();
     } else if (buttonText === '团队') {
+        // 显示文章列表
+        hideUserProfilePage();
+        showAllArticles();
+    } else {
+        // 其他页面
+        hideUserProfilePage();
         showAllArticles();
     }
     
     console.log(`🧭 导航到: ${buttonText}`);
+}
+
+// 显示用户详情页面
+function showUserProfilePage() {
+    const articlesGrid = document.querySelector('.articles-grid');
+    const userProfilePage = document.querySelector('.user-profile-page');
+    
+    // 隐藏文章列表
+    articlesGrid.style.display = 'none';
+    
+    // 显示用户详情页面
+    userProfilePage.style.display = 'block';
+    
+    // 添加淡入动画
+    setTimeout(() => {
+        userProfilePage.classList.add('active');
+    }, 50);
+    
+    // 初始化图表
+    setTimeout(() => {
+        initializeReadingChart();
+        animateStatsNumbers();
+    }, 300);
+}
+
+// 隐藏用户详情页面
+function hideUserProfilePage() {
+    const articlesGrid = document.querySelector('.articles-grid');
+    const userProfilePage = document.querySelector('.user-profile-page');
+    
+    // 隐藏用户详情页面
+    userProfilePage.classList.remove('active');
+    setTimeout(() => {
+        userProfilePage.style.display = 'none';
+    }, 300);
+    
+    // 显示文章列表
+    articlesGrid.style.display = 'grid';
+}
+
+// 初始化阅读统计图表
+function initializeReadingChart() {
+    const canvas = document.getElementById('readingChart');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // 清空画布
+    ctx.clearRect(0, 0, width, height);
+    
+    // 模拟7天的阅读数据
+    const readingData = [12, 8, 15, 6, 10, 18, 14];
+    const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    const maxValue = Math.max(...readingData);
+    
+    // 设置图表区域
+    const padding = 40;
+    const chartWidth = width - padding * 2;
+    const chartHeight = height - padding * 2;
+    const barWidth = chartWidth / readingData.length;
+    
+    // 设置渐变
+    const gradient = ctx.createLinearGradient(0, 0, 0, height);
+    gradient.addColorStop(0, '#25BCFF');
+    gradient.addColorStop(0.5, '#1781E8');
+    gradient.addColorStop(1, '#9223FF');
+    
+    // 绘制背景网格
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.lineWidth = 1;
+    
+    // 水平网格线
+    for (let i = 0; i <= 4; i++) {
+        const y = padding + (chartHeight / 4) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
+    }
+    
+    // 绘制柱状图
+    readingData.forEach((value, index) => {
+        const barHeight = (value / maxValue) * chartHeight;
+        const x = padding + index * barWidth + barWidth * 0.2;
+        const y = height - padding - barHeight;
+        const actualBarWidth = barWidth * 0.6;
+        
+        // 绘制柱子
+        ctx.fillStyle = gradient;
+        ctx.fillRect(x, y, actualBarWidth, barHeight);
+        
+        // 绘制数值标签
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Orbitron';
+        ctx.textAlign = 'center';
+        ctx.fillText(value.toString(), x + actualBarWidth / 2, y - 5);
+        
+        // 绘制日期标签
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.font = '10px Orbitron';
+        ctx.fillText(days[index], x + actualBarWidth / 2, height - padding + 15);
+    });
+    
+    // 绘制Y轴标签
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.font = '10px Orbitron';
+    ctx.textAlign = 'right';
+    for (let i = 0; i <= 4; i++) {
+        const value = Math.round((maxValue / 4) * (4 - i));
+        const y = padding + (chartHeight / 4) * i + 5;
+        ctx.fillText(value.toString(), padding - 10, y);
+    }
+    
+    // 添加动画效果
+    animateChart(ctx, readingData, days, maxValue, width, height, padding);
+}
+
+// 图表动画
+function animateChart(ctx, data, days, maxValue, width, height, padding) {
+    let progress = 0;
+    const duration = 1500; // 1.5秒
+    const startTime = Date.now();
+    
+    function animate() {
+        const elapsed = Date.now() - startTime;
+        progress = Math.min(elapsed / duration, 1);
+        
+        // 使用easeOutCubic缓动函数
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        
+        // 清空画布
+        ctx.clearRect(0, 0, width, height);
+        
+        const chartWidth = width - padding * 2;
+        const chartHeight = height - padding * 2;
+        const barWidth = chartWidth / data.length;
+        
+        // 重新绘制网格
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 4; i++) {
+            const y = padding + (chartHeight / 4) * i;
+            ctx.beginPath();
+            ctx.moveTo(padding, y);
+            ctx.lineTo(width - padding, y);
+            ctx.stroke();
+        }
+        
+        // 设置渐变
+        const gradient = ctx.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, '#25BCFF');
+        gradient.addColorStop(0.5, '#1781E8');
+        gradient.addColorStop(1, '#9223FF');
+        
+        // 绘制动画柱状图
+        data.forEach((value, index) => {
+            const animatedValue = value * easeProgress;
+            const barHeight = (animatedValue / maxValue) * chartHeight;
+            const x = padding + index * barWidth + barWidth * 0.2;
+            const y = height - padding - barHeight;
+            const actualBarWidth = barWidth * 0.6;
+            
+            // 绘制柱子
+            ctx.fillStyle = gradient;
+            ctx.fillRect(x, y, actualBarWidth, barHeight);
+            
+            // 绘制数值标签（只在动画结束时显示）
+            if (progress > 0.8) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '12px Orbitron';
+                ctx.textAlign = 'center';
+                ctx.fillText(value.toString(), x + actualBarWidth / 2, y - 5);
+            }
+            
+            // 绘制日期标签
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '10px Orbitron';
+            ctx.fillText(days[index], x + actualBarWidth / 2, height - padding + 15);
+        });
+        
+        // 绘制Y轴标签
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.font = '10px Orbitron';
+        ctx.textAlign = 'right';
+        for (let i = 0; i <= 4; i++) {
+            const value = Math.round((maxValue / 4) * (4 - i));
+            const y = padding + (chartHeight / 4) * i + 5;
+            ctx.fillText(value.toString(), padding - 10, y);
+        }
+        
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        }
+    }
+    
+    animate();
+}
+
+// 数字动画
+function animateStatsNumbers() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(element => {
+        const finalValue = element.textContent;
+        const numericValue = parseInt(finalValue.replace(/,/g, '')) || 0;
+        
+        animateNumber(element, 0, numericValue, 2000, finalValue.includes(','));
+    });
+}
+
+function animateNumber(element, start, end, duration, useCommas = false) {
+    const startTime = Date.now();
+    
+    function update() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // 使用easeOutCubic缓动函数
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.round(start + (end - start) * easeProgress);
+        
+        element.textContent = useCommas ? currentValue.toLocaleString() : currentValue.toString();
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    update();
 }
 
 // 显示收藏的文章

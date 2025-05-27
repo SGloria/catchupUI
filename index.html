@@ -455,6 +455,123 @@
                 <p class="no-more-text">AUV，没有更多内容了！</p>
             </div>
         </div>
+
+        <!-- 用户详情页面 -->
+        <div class="user-profile-page" id="userProfilePage" style="display: none;">
+            <div class="profile-container">
+                <!-- 用户信息区域 -->
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=face" alt="用户头像" class="avatar-image">
+                        <div class="avatar-ring"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="profile-name">当前用户</h2>
+                        <p class="profile-title">科技爱好者</p>
+                        <p class="profile-bio">热爱分享最新的科技动态和编程技巧</p>
+                    </div>
+                </div>
+
+                <!-- 统计数据区域 -->
+                <div class="stats-section">
+                    <h3 class="section-title">我的统计</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalShares">42</div>
+                                <div class="stat-label">累计分享</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-thumbs-up"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalLikes">1,286</div>
+                                <div class="stat-label">收到点赞</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="totalViews">8,542</div>
+                                <div class="stat-label">文章浏览</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number" id="streakDays">12</div>
+                                <div class="stat-label">连续阅读天数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 阅读统计图表区域 -->
+                <div class="chart-section">
+                    <h3 class="section-title">最近7天阅读统计</h3>
+                    <div class="chart-container">
+                        <div class="chart-wrapper">
+                            <canvas id="readingChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color"></span>
+                                <span class="legend-text">每日阅读量</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成就区域 -->
+                <div class="achievements-section">
+                    <h3 class="section-title">我的成就</h3>
+                    <div class="achievements-grid">
+                        <div class="achievement-item achieved">
+                            <div class="achievement-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">阅读达人</div>
+                                <div class="achievement-desc">连续阅读7天</div>
+                            </div>
+                        </div>
+                        <div class="achievement-item achieved">
+                            <div class="achievement-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">分享专家</div>
+                                <div class="achievement-desc">分享文章达到25篇</div>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="achievement-info">
+                                <div class="achievement-name">影响力者</div>
+                                <div class="achievement-desc">获得1000个点赞</div>
+                                <div class="achievement-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 73%"></div>
+                                    </div>
+                                    <span class="progress-text">73%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- 底部导航栏 -->
