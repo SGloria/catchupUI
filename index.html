@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CatchUP - to读List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -78,37 +78,35 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <div class="action-row">
-                            <div class="action-group like-group">
-                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
-                                    <i class="far fa-thumbs-up"></i>
-                                    <span>128</span>
-                                </button>
-                                <div class="user-avatars like-avatars">
-                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        <div class="action-item like-group">
+                            <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>128</span>
+                            </button>
+                            <div class="user-avatars like-avatars">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group neutral-group">
-                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
-                                    <i class="far fa-meh"></i>
-                                    <span>15</span>
-                                </button>
-                                <div class="user-avatars neutral-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item neutral-group">
+                            <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                <i class="far fa-meh"></i>
+                                <span>15</span>
+                            </button>
+                            <div class="user-avatars neutral-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group dislike-group">
-                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
-                                    <i class="far fa-thumbs-down"></i>
-                                    <span>3</span>
-                                </button>
-                                <div class="user-avatars dislike-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item dislike-group">
+                            <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                <i class="far fa-thumbs-down"></i>
+                                <span>3</span>
+                            </button>
+                            <div class="user-avatars dislike-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
                         </div>
                     </div>
@@ -199,37 +197,35 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <div class="action-row">
-                            <div class="action-group like-group">
-                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
-                                    <i class="far fa-thumbs-up"></i>
-                                    <span>89</span>
-                                </button>
-                                <div class="user-avatars like-avatars">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        <div class="action-item like-group">
+                            <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>89</span>
+                            </button>
+                            <div class="user-avatars like-avatars">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group neutral-group">
-                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
-                                    <i class="far fa-meh"></i>
-                                    <span>1</span>
-                                </button>
-                                <div class="user-avatars neutral-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item neutral-group">
+                            <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                <i class="far fa-meh"></i>
+                                <span>1</span>
+                            </button>
+                            <div class="user-avatars neutral-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group dislike-group">
-                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
-                                    <i class="far fa-thumbs-down"></i>
-                                    <span>1</span>
-                                </button>
-                                <div class="user-avatars dislike-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item dislike-group">
+                            <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                <i class="far fa-thumbs-down"></i>
+                                <span>1</span>
+                            </button>
+                            <div class="user-avatars dislike-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
                         </div>
                     </div>
@@ -310,37 +306,35 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <div class="action-row">
-                            <div class="action-group like-group">
-                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
-                                    <i class="far fa-thumbs-up"></i>
-                                    <span>256</span>
-                                </button>
-                                <div class="user-avatars like-avatars">
-                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        <div class="action-item like-group">
+                            <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>256</span>
+                            </button>
+                            <div class="user-avatars like-avatars">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group neutral-group">
-                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
-                                    <i class="far fa-meh"></i>
-                                    <span>5</span>
-                                </button>
-                                <div class="user-avatars neutral-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item neutral-group">
+                            <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                <i class="far fa-meh"></i>
+                                <span>5</span>
+                            </button>
+                            <div class="user-avatars neutral-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group dislike-group">
-                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
-                                    <i class="far fa-thumbs-down"></i>
-                                    <span>5</span>
-                                </button>
-                                <div class="user-avatars dislike-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item dislike-group">
+                            <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                <i class="far fa-thumbs-down"></i>
+                                <span>5</span>
+                            </button>
+                            <div class="user-avatars dislike-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
                         </div>
                     </div>
@@ -431,37 +425,35 @@
                 
                 <div class="card-actions">
                     <div class="engagement-stats">
-                        <div class="action-row">
-                            <div class="action-group like-group">
-                                <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
-                                    <i class="far fa-thumbs-up"></i>
-                                    <span>45</span>
-                                </button>
-                                <div class="user-avatars like-avatars">
-                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        <div class="action-item like-group">
+                            <button class="stat-btn like-btn" onclick="toggleReaction(event, this, 'like')">
+                                <i class="far fa-thumbs-up"></i>
+                                <span>45</span>
+                            </button>
+                            <div class="user-avatars like-avatars">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b25ad4c5?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group neutral-group">
-                                <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
-                                    <i class="far fa-meh"></i>
-                                    <span>12</span>
-                                </button>
-                                <div class="user-avatars neutral-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item neutral-group">
+                            <button class="stat-btn neutral-btn" onclick="toggleReaction(event, this, 'neutral')">
+                                <i class="far fa-meh"></i>
+                                <span>12</span>
+                            </button>
+                            <div class="user-avatars neutral-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
-                            <div class="action-group dislike-group">
-                                <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
-                                    <i class="far fa-thumbs-down"></i>
-                                    <span>8</span>
-                                </button>
-                                <div class="user-avatars dislike-avatars">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
-                                </div>
+                        </div>
+                        <div class="action-item dislike-group">
+                            <button class="stat-btn dislike-btn" onclick="toggleReaction(event, this, 'dislike')">
+                                <i class="far fa-thumbs-down"></i>
+                                <span>8</span>
+                            </button>
+                            <div class="user-avatars dislike-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=24&h=24&fit=crop&crop=face" alt="用户" class="mini-avatar">
                             </div>
                         </div>
                     </div>
