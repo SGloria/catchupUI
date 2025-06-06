@@ -69,6 +69,9 @@ function addEventListeners() {
             event.stopPropagation();
         });
     });
+    
+    // 添加滚动监听器
+    initializeScrollBehavior();
 }
 
 // 切换评论区域显示状态
@@ -1463,6 +1466,69 @@ function updateSubmitButtonState(textarea, submitBtn) {
         submitBtn.style.opacity = '1';
     } else {
         submitBtn.style.opacity = '0.5';
+    }
+}
+
+// 滚动行为控制
+let lastScrollTop = 0;
+let scrollTimeout;
+const scrollThreshold = 10; // 滚动阈值，避免小幅度滚动触发
+
+function initializeScrollBehavior() {
+    const header = document.querySelector('.cyber-header');
+    const footer = document.querySelector('.cyber-footer');
+    
+    window.addEventListener('scroll', function() {
+        // 防抖处理
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            handleScroll(header, footer);
+        }, 50);
+    }, { passive: true });
+}
+
+function handleScroll(header, footer) {
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // 避免在顶部时触发隐藏
+    if (currentScrollTop <= 0) {
+        showHeaderFooter(header, footer);
+        lastScrollTop = currentScrollTop;
+        return;
+    }
+    
+    // 计算滚动差异
+    const scrollDiff = Math.abs(currentScrollTop - lastScrollTop);
+    
+    // 只有滚动距离超过阈值才触发
+    if (scrollDiff > scrollThreshold) {
+        if (currentScrollTop > lastScrollTop) {
+            // 向下滚动 - 隐藏头部和底部栏
+            hideHeaderFooter(header, footer);
+        } else {
+            // 向上滚动 - 显示头部和底部栏
+            showHeaderFooter(header, footer);
+        }
+    }
+    
+    lastScrollTop = currentScrollTop;
+}
+
+function hideHeaderFooter(header, footer) {
+    if (header) {
+        header.classList.add('hidden');
+    }
+    if (footer) {
+        footer.classList.add('hidden');
+    }
+}
+
+function showHeaderFooter(header, footer) {
+    if (header) {
+        header.classList.remove('hidden');
+    }
+    if (footer) {
+        footer.classList.remove('hidden');
     }
 }
 

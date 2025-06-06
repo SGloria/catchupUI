@@ -107,6 +107,12 @@ body {
     background: rgba(119, 130, 155, 0.8);
     backdrop-filter: blur(20px) saturate(150%);
     z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.cyber-header.hidden {
+    transform: translateY(-100%);
 }
 
 .header-container {
@@ -273,6 +279,7 @@ body {
 
 /* 文章卡片 */
 .article-card {
+    --card-padding-x: 16px;
     background: linear-gradient(135deg, rgba(245, 245, 245, 0.98), rgba(245, 245, 245, 0.98));
     border: none;
     border-radius: 8px;
@@ -291,7 +298,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 20px 12px 20px;
+    padding: 16px var(--card-padding-x) 12px var(--card-padding-x);
     background: rgba(245, 245, 245, 0.98);
     backdrop-filter: blur(10px);
 }
@@ -332,7 +339,7 @@ body {
 .card-top-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 4px;
 }
 
 .read-status-btn {
@@ -409,6 +416,10 @@ body {
 }
 
 .card-tags {
+    position: absolute;
+    top: 12px;
+    right: var(--card-padding-x);
+    z-index: 10;
     display: flex;
     gap: 8px;
 }
@@ -466,7 +477,7 @@ body {
 }
 
 .card-content {
-    padding: 16px 20px 12px 20px;
+    padding: 16px var(--card-padding-x) 12px var(--card-padding-x);
 }
 
 .card-title {
@@ -490,7 +501,7 @@ body {
 }
 
 .card-actions {
-    padding: 12px 20px 16px 20px;
+    padding: 12px var(--card-padding-x) 16px var(--card-padding-x);
     border-top: none;
     background: rgba(245, 245, 245, 0.98);
 }
@@ -623,7 +634,7 @@ body {
 
 /* 评论区域 */
 .comments-section {
-    border-top: 1px solid rgba(37, 188, 255, 0.1);
+    border-top: 1px solid #AFBBD5;
     background: rgba(245, 245, 245, 0.98);
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -638,7 +649,7 @@ body {
 }
 
 .comments-header {
-    padding: 16px 20px;
+    padding: 16px var(--card-padding-x);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -648,7 +659,7 @@ body {
 }
 
 .comments-header:hover {
-    background: rgba(37, 188, 255, 0.05);
+    background: rgba(245, 245, 245, 0.98);
 }
 
 .comments-header h4 {
@@ -757,6 +768,12 @@ body {
     background: rgba(119, 130, 155, 0.8);
     backdrop-filter: blur(20px) saturate(150%);
     z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.cyber-footer.hidden {
+    transform: translateY(100%);
 }
 
 .footer-container {
@@ -839,6 +856,10 @@ body {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+    .article-card {
+        --card-padding-x: 12px;
+    }
+
     .header-container {
         padding: 0 16px;
     }
@@ -869,7 +890,7 @@ body {
     }
     
     .card-content {
-        padding: 12px 16px 8px 16px;
+        padding: 12px var(--card-padding-x) 8px var(--card-padding-x);
     }
     
     .card-title {
@@ -907,7 +928,7 @@ body {
     }
     
     .card-top-bar {
-        padding: 10px 12px 6px 12px;
+        padding: 10px var(--card-padding-x) 6px var(--card-padding-x);
     }
     
     .card-author-info .author-avatar {
@@ -1024,20 +1045,20 @@ body {
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--surface-bg);
+    background: #E5E5E5;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-gradient);
-    border-radius: 4px;
+    background: #666666;
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-gradient);
+    background: #555555;
 }
 
 /* 侧边栏系统 */
@@ -1072,7 +1093,6 @@ body {
     z-index: 9999;
     transition: right 0.3s ease;
     overflow-y: auto;
-    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar.active {
