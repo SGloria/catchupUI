@@ -1372,77 +1372,186 @@ function showNotification(message, type = 'info') {
 
 // 初始化过滤器
 function initializeFilters() {
-    const filterTags = document.querySelectorAll('.filter-tag');
-    filterTags.forEach(tag => {
-        tag.addEventListener('mouseenter', function() {
-            this.style.boxShadow = '0 0 15px rgba(0, 255, 255, 0.5)';
+    // 可以在此处添加过滤器的初始化逻辑
+    console.log('Filters initialized');
+}
+
+// 提交评论功能
+function submitComment(event, button) {
+    event.stopPropagation();
+    
+    const articleId = button.getAttribute('data-article-id');
+    const inputContainer = button.parentElement;
+    const textarea = inputContainer.querySelector('.new-comment-input');
+    const commentText = textarea.value.trim();
+    
+    if (!commentText) {
+        showNotification('请输入评论内容', 'error');
+        textarea.focus();
+        return;
+    }
+    
+    // 禁用按钮防止重复提交
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    
+    // 模拟网络请求延迟
+    setTimeout(() => {
+        // 创建新评论元素
+        const newComment = createCommentElement(commentText);
+        
+        // 找到评论列表并添加新评论
+        const commentsList = textarea.closest('.comments-list');
+        const newCommentSection = textarea.closest('.new-comment-section');
+        
+        // 在新评论输入区域之前插入新评论
+        commentsList.insertBefore(newComment, newCommentSection);
+        
+        // 更新评论数量
+        updateCommentCount(articleId);
+        
+        // 清空输入框
+        textarea.value = '';
+        
+        // 恢复按钮状态
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-paper-plane"></i>';
+        
+        // 显示成功通知
+        showNotification('评论发表成功！', 'success');
+        
+        // 添加发表成功动画
+        newComment.style.opacity = '0';
+        newComment.style.transform = 'translateY(-10px)';
+        newComment.style.transition = 'all 0.5s ease';
+        
+        setTimeout(() => {
+            newComment.style.opacity = '1';
+            newComment.style.transform = 'translateY(0)';
+        }, 100);
+        
+        // 创建粒子特效
+        createCommentParticles(button);
+        
+        // 触感反馈
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+        
+    }, 500); // 模拟500ms网络延迟
+}
+
+// 创建评论元素
+function createCommentElement(commentText) {
+    const commentItem = document.createElement('div');
+    commentItem.className = 'comment-item';
+    
+    const currentTime = new Date();
+    const timeString = '刚刚';
+    
+    commentItem.innerHTML = `
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=32&h=32&fit=crop&crop=face" alt="用户" class="comment-avatar">
+        <div class="comment-content">
+            <div class="comment-header">
+                <span class="comment-author">当前用户</span>
+                <span class="comment-time">${timeString}</span>
+            </div>
+            <p class="comment-text">${commentText}</p>
+        </div>
+    `;
+    
+    return commentItem;
+}
+
+// 更新评论数量
+function updateCommentCount(articleId) {
+    const article = document.querySelector(`[onclick="openArticle(${articleId})"]`);
+    if (article) {
+        const commentsHeader = article.querySelector('.comments-header h4');
+        if (commentsHeader) {
+            const currentText = commentsHeader.textContent;
+            const currentCount = parseInt(currentText.match(/\d+/)[0]);
+            const newCount = currentCount + 1;
+            commentsHeader.textContent = `评论 (${newCount})`;
+        }
+    }
+}
+
+// 创建评论提交粒子特效
+function createCommentParticles(button) {
+    const rect = button.getBoundingClientRect();
+    const particleCount = 3;
+    const emojis = ['💬', '✨', '🎉'];
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.innerHTML = emojis[i % emojis.length];
+        particle.style.position = 'fixed';
+        particle.style.left = rect.left + rect.width / 2 + 'px';
+        particle.style.top = rect.top + rect.height / 2 + 'px';
+        particle.style.fontSize = '16px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '10000';
+        particle.style.transition = 'all 1s ease-out';
+        
+        document.body.appendChild(particle);
+        
+        // 随机方向和距离
+        const angle = (i / particleCount) * 2 * Math.PI + Math.random() * 0.5;
+        const distance = 30 + Math.random() * 15;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance - 20; // 向上偏移
+        
+        setTimeout(() => {
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            particle.style.opacity = '0';
+        }, 10);
+        
+        // 清理粒子
+        setTimeout(() => {
+            if (document.body.contains(particle)) {
+                document.body.removeChild(particle);
+            }
+        }, 1000);
+    }
+}
+
+// 监听输入框变化，动态启用/禁用提交按钮
+document.addEventListener('DOMContentLoaded', function() {
+    // 为所有新评论输入框添加事件监听
+    document.querySelectorAll('.new-comment-input').forEach(textarea => {
+        const submitBtn = textarea.parentElement.querySelector('.submit-comment-btn');
+        
+        // 初始状态
+        updateSubmitButtonState(textarea, submitBtn);
+        
+        // 监听输入变化
+        textarea.addEventListener('input', function() {
+            updateSubmitButtonState(this, submitBtn);
         });
         
-        tag.addEventListener('mouseleave', function() {
-            if (!this.classList.contains('active')) {
-                this.style.boxShadow = '';
+        // 监听键盘事件（Ctrl+Enter 或 Cmd+Enter 提交）
+        textarea.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                event.preventDefault();
+                if (!submitBtn.disabled) {
+                    submitComment(event, submitBtn);
+                }
             }
         });
     });
-}
-
-// CSS 动画关键帧（通过JavaScript注入）
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .cyber-notification.success {
-        border: none;
-        color: #25BCFF;
-        box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
-    }
-    
-    .cyber-notification.error {
-        border: none;
-        color: #FF0DC0;
-        box-shadow: 0 0 20px rgba(255, 13, 192, 0.3);
-    }
-    
-    body.loaded .article-card {
-        animation: fadeInUp 0.6s ease forwards;
-    }
-`;
-document.head.appendChild(style);
-
-// 键盘快捷键
-document.addEventListener('keydown', function(e) {
-    // ESC 关闭所有展开的评论
-    if (e.key === 'Escape') {
-        document.querySelectorAll('.comments-section:not(.collapsed)').forEach(section => {
-            section.classList.add('collapsed');
-            section.querySelector('.comments-list').style.display = 'none';
-            section.querySelector('.comments-toggle i').style.transform = 'rotate(0deg)';
-        });
-    }
-    
-    // 空格键滚动到下一篇文章
-    if (e.key === ' ' && !e.target.matches('input, textarea, select')) {
-        e.preventDefault();
-        const articles = document.querySelectorAll('.article-card');
-        const scrollTop = window.pageYOffset;
-        
-        for (let article of articles) {
-            const rect = article.getBoundingClientRect();
-            if (rect.top > 100) {
-                article.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                break;
-            }
-        }
-    }
 });
+
+// 更新提交按钮状态
+function updateSubmitButtonState(textarea, submitBtn) {
+    const hasText = textarea.value.trim().length > 0;
+    submitBtn.disabled = !hasText;
+    
+    if (hasText) {
+        submitBtn.style.opacity = '1';
+    } else {
+        submitBtn.style.opacity = '0.5';
+    }
+}
 
 console.log('🎮 CyberRead 脚本加载完成'); 
