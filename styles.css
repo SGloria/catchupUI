@@ -121,7 +121,7 @@ body {
     justify-content: space-between;
     height: 100%;
     padding: 0 20px;
-    max-width: 1400px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -273,7 +273,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 30px;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -516,7 +516,7 @@ body {
 .action-item {
     display: flex;
     align-items: center;
-    gap: -8px;
+    gap: 4px;
 }
 
 .stat-btn {
@@ -756,7 +756,7 @@ body {
 .footer-container {
     height: 100%;
     padding: 16px 20px;
-    max-width: 1400px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
