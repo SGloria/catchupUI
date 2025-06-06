@@ -1,0 +1,11 @@
+
+<svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 48px;
+      fill: black;
+    }
+  </style>
+  <text x="10" y="60" class="text">Catchup</text>
+</svg>
