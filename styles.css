@@ -55,18 +55,11 @@
 
 body {
     font-family: var(--font-primary);
-    background: var(--dark-bg);
+    background: #B1BAD2;  /* 修改为指定的背景颜色 */
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
-    
-    /* 深空渐变背景效果 */
-    background-image: 
-        radial-gradient(circle at 20% 20%, rgba(37, 188, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(146, 35, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(230, 45, 232, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 30% 70%, rgba(255, 13, 192, 0.05) 0%, transparent 50%);
 }
 
 /* Logo 样式调整 */
@@ -78,8 +71,6 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    box-shadow: var(--cyan-glow);
-    animation: pulse-glow 3s ease-in-out infinite alternate;
 }
 
 .logo-image {
@@ -104,7 +95,6 @@ body {
     background-clip: text;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(37, 188, 255, 0.5);
-    animation: text-glow 4s ease-in-out infinite alternate;
 }
 
 /* 顶部导航栏 */
@@ -114,14 +104,9 @@ body {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(119, 130, 155, 0.8);
     backdrop-filter: blur(20px) saturate(150%);
     z-index: 1000;
-    
-    /* 深色毛玻璃效果 */
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .header-container {
@@ -164,7 +149,6 @@ body {
 
 .action-btn:hover {
     background: linear-gradient(135deg, rgba(37, 188, 255, 0.2), rgba(146, 35, 255, 0.2));
-    box-shadow: var(--purple-glow);
     transform: scale(1.1);
     color: var(--primary-cyan);
 }
@@ -183,7 +167,6 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: var(--pink-glow);
 }
 
 /* 主要内容区域 */
@@ -202,7 +185,7 @@ body {
     padding: 20px;
     margin-bottom: 30px;
     backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), var(--cyan-glow);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .filter-container {
@@ -249,7 +232,6 @@ body {
 
 .filter-tag:hover {
     border-color: var(--primary-cyan);
-    box-shadow: var(--cyan-glow);
     color: var(--primary-cyan);
 }
 
@@ -261,7 +243,6 @@ body {
     background: var(--primary-gradient);
     color: white;
     border-color: transparent;
-    box-shadow: var(--blue-glow);
 }
 
 .cyber-select {
@@ -279,7 +260,6 @@ body {
 .cyber-select:focus {
     outline: none;
     border-color: var(--primary-purple);
-    box-shadow: var(--purple-glow);
 }
 
 /* 文章网格 */
@@ -293,37 +273,13 @@ body {
 
 /* 文章卡片 */
 .article-card {
-    background: linear-gradient(135deg, rgba(25, 35, 55, 0.98), rgba(45, 55, 80, 0.98));
+    background: linear-gradient(135deg, rgba(245, 245, 245, 0.98), rgba(255, 255, 255, 0.98));
     border: none;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     position: relative;
-}
-
-.article-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--rainbow-gradient);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    border-radius: 16px;
-}
-
-.article-card:hover {
-    background: linear-gradient(135deg, rgba(35, 45, 65, 1), rgba(55, 65, 90, 1));
-    box-shadow: var(--rainbow-glow);
-}
-
-.article-card:hover::before {
-    opacity: 0.05;
 }
 
 .card-header {
@@ -350,7 +306,6 @@ body {
     height: 36px;
     border-radius: 50%;
     border: 2px solid rgba(37, 188, 255, 0.3);
-    box-shadow: var(--cyan-glow);
 }
 
 .card-author-info .author-info {
@@ -399,7 +354,6 @@ body {
     background: rgba(37, 188, 255, 0.1);
     color: var(--primary-cyan);
     transform: scale(1.1);
-    box-shadow: var(--cyan-glow);
 }
 
 .read-status-btn.read {
@@ -408,13 +362,13 @@ body {
 }
 
 .read-status-btn.read i {
-    animation: read-pulse 0.6s ease;
+    /* 移除动画效果 */
 }
 
 .read-status-btn.read:hover {
     color: #4CAF50;
     background: rgba(76, 175, 80, 0.25);
-    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+    /* 移除发光效果 */
 }
 
 .bookmark-btn {
@@ -437,7 +391,6 @@ body {
     background: rgba(37, 188, 255, 0.1);
     color: var(--primary-cyan);
     transform: scale(1.1);
-    box-shadow: var(--cyan-glow);
 }
 
 .bookmark-btn.bookmarked {
@@ -446,13 +399,12 @@ body {
 }
 
 .bookmark-btn.bookmarked i {
-    animation: bookmark-pulse 0.6s ease;
+    /* 移除动画效果 */
 }
 
 .bookmark-btn.bookmarked:hover {
     color: var(--primary-magenta);
     background: rgba(230, 45, 232, 0.15);
-    box-shadow: var(--magenta-glow);
 }
 
 .card-tags {
@@ -584,7 +536,6 @@ body {
     color: var(--primary-cyan);
     background: rgba(37, 188, 255, 0.1);
     transform: scale(1.05);
-    box-shadow: var(--cyan-glow);
 }
 
 .stat-btn.liked {
@@ -595,7 +546,7 @@ body {
 .stat-btn.liked:hover {
     color: var(--primary-cyan);
     background: rgba(37, 188, 255, 0.25);
-    box-shadow: var(--cyan-glow);
+    /* 移除发光效果 */
 }
 
 .stat-btn.neutral {
@@ -617,7 +568,7 @@ body {
 .stat-btn.disliked:hover {
     color: var(--primary-magenta);
     background: rgba(230, 45, 232, 0.25);
-    box-shadow: var(--magenta-glow);
+    /* 移除发光效果 */
 }
 
 .user-avatars {
@@ -657,15 +608,15 @@ body {
 }
 
 .like-avatars .mini-avatar:hover {
-    box-shadow: var(--cyan-glow);
+    /* 移除发光效果 */
 }
 
 .neutral-avatars .mini-avatar:hover {
-    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+    /* 移除发光效果 */
 }
 
 .dislike-avatars .mini-avatar:hover {
-    box-shadow: var(--magenta-glow);
+    /* 移除发光效果 */
 }
 
 /* 评论区域 */
@@ -716,7 +667,7 @@ body {
 
 .comments-toggle:hover {
     background: rgba(37, 188, 255, 0.2);
-    box-shadow: var(--cyan-glow);
+    /* 移除发光效果 */
 }
 
 .comments-toggle i {
@@ -801,14 +752,9 @@ body {
     left: 0;
     right: 0;
     height: var(--footer-height);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(119, 130, 155, 0.8);
     backdrop-filter: blur(20px) saturate(150%);
     z-index: 1000;
-    
-    /* 深色毛玻璃效果 */
-    box-shadow: 
-        0 -8px 32px rgba(0, 0, 0, 0.5),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .footer-container {
@@ -887,49 +833,6 @@ body {
 .footer-btn span {
     position: relative;
     z-index: 1;
-}
-
-/* 动画效果 */
-@keyframes pulse-glow {
-    0% {
-        box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
-    }
-    100% {
-        box-shadow: 0 0 30px rgba(146, 35, 255, 0.6);
-    }
-}
-
-@keyframes text-glow {
-    0% {
-        text-shadow: 0 0 10px rgba(37, 188, 255, 0.5);
-    }
-    100% {
-        text-shadow: 0 0 20px rgba(146, 35, 255, 0.8), 0 0 30px rgba(230, 45, 232, 0.5);
-    }
-}
-
-@keyframes bookmark-pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.3);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes read-pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.3);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 
 /* 响应式设计 */
@@ -1652,7 +1555,6 @@ body {
     border-radius: 50%;
     background: var(--rainbow-gradient);
     background-clip: border-box;
-    animation: rotate 3s linear infinite;
     opacity: 0.6;
 }
 
@@ -1924,15 +1826,6 @@ body {
     color: var(--primary-cyan);
     font-weight: 600;
     min-width: 30px;
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 /* 响应式设计 - 用户详情页面 */

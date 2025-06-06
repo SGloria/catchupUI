@@ -8,7 +8,7 @@ const currentUser = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     addEventListeners();
-    createCyberEffects();
+    // createCyberEffects(); // 注释掉闪烁动画效果
 });
 
 // 初始化应用
@@ -16,7 +16,7 @@ function initializeApp() {
     console.log('🚀 CyberRead App 启动');
     
     // 创建赛博朋克粒子效果
-    createParticleBackground();
+    // createParticleBackground(); // 注释掉悬浮颗粒动画
     
     // 初始化过滤标签
     initializeFilters();
@@ -1220,94 +1220,6 @@ function showAllArticles() {
     allCards.forEach(card => {
         card.style.display = 'block';
         card.style.animation = 'fadeInUp 0.5s ease forwards';
-    });
-}
-
-// 创建粒子背景
-function createParticleBackground() {
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '-1';
-    canvas.style.opacity = '0.3';
-    
-    document.body.appendChild(canvas);
-    
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    
-    function createParticle() {
-        const colors = [
-            '#25BCFF', '#1781E8', '#9223FF', '#E62DE8', '#FF0DC0'
-        ];
-        return {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2 + 1,
-            speedX: (Math.random() - 0.5) * 0.5,
-            speedY: (Math.random() - 0.5) * 0.5,
-            color: colors[Math.floor(Math.random() * colors.length)]
-        };
-    }
-    
-    function initParticles() {
-        particles = [];
-        for (let i = 0; i < 50; i++) {
-            particles.push(createParticle());
-        }
-    }
-    
-    function updateParticles() {
-        particles.forEach(particle => {
-            particle.x += particle.speedX;
-            particle.y += particle.speedY;
-            
-            if (particle.x < 0) particle.x = canvas.width;
-            if (particle.x > canvas.width) particle.x = 0;
-            if (particle.y < 0) particle.y = canvas.height;
-            if (particle.y > canvas.height) particle.y = 0;
-        });
-    }
-    
-    function drawParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(particle => {
-            ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            ctx.fillStyle = particle.color;
-            ctx.fill();
-            
-            // 添加发光效果
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = particle.color;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        });
-    }
-    
-    function animate() {
-        updateParticles();
-        drawParticles();
-        requestAnimationFrame(animate);
-    }
-    
-    resizeCanvas();
-    initParticles();
-    animate();
-    
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initParticles();
     });
 }
 
