@@ -356,24 +356,19 @@ body {
 }
 
 .read-status-btn:hover {
-    background: rgba(37, 188, 255, 0.1);
-    color: var(--primary-cyan);
+    background: rgba(27, 117, 229, 0.1);
+    color: #1B75E5;
     transform: scale(1.1);
 }
 
 .read-status-btn.read {
-    color: #4CAF50;
-    background: rgba(76, 175, 80, 0.15);
-}
-
-.read-status-btn.read i {
-    /* 移除动画效果 */
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.15);
 }
 
 .read-status-btn.read:hover {
-    color: #4CAF50;
-    background: rgba(76, 175, 80, 0.25);
-    /* 移除发光效果 */
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.25);
 }
 
 .bookmark-btn {
@@ -393,23 +388,19 @@ body {
 }
 
 .bookmark-btn:hover {
-    background: rgba(37, 188, 255, 0.1);
-    color: var(--primary-cyan);
+    background: rgba(27, 117, 229, 0.1);
+    color: #1B75E5;
     transform: scale(1.1);
 }
 
 .bookmark-btn.bookmarked {
-    color: var(--primary-cyan);
-    background: rgba(37, 188, 255, 0.15);
-}
-
-.bookmark-btn.bookmarked i {
-    /* 移除动画效果 */
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.15);
 }
 
 .bookmark-btn.bookmarked:hover {
-    color: var(--primary-magenta);
-    background: rgba(230, 45, 232, 0.15);
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.15);
 }
 
 .card-tags {
@@ -456,7 +447,7 @@ body {
 
 .card-tag {
     padding: 4px 8px;
-    background: var(--primary-gradient);
+    background: rgba(95, 95, 95, 0.7);
     color: white;
     border-radius: 12px;
     font-size: 10px;
@@ -466,11 +457,11 @@ body {
 }
 
 .card-tag.design {
-    background: var(--secondary-gradient);
+    background: rgba(95, 95, 95, 0.7);
 }
 
 .card-tag.programming {
-    background: var(--accent-gradient);
+    background: rgba(95, 95, 95, 0.7);
 }
 
 .card-content {
@@ -533,42 +524,39 @@ body {
 }
 
 .stat-btn:hover {
-    color: var(--primary-cyan);
-    background: rgba(37, 188, 255, 0.1);
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.1);
     transform: scale(1.05);
 }
 
 .stat-btn.liked {
-    color: var(--primary-cyan);
-    background: rgba(37, 188, 255, 0.15);
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.15);
 }
 
 .stat-btn.liked:hover {
-    color: var(--primary-cyan);
-    background: rgba(37, 188, 255, 0.25);
-    /* 移除发光效果 */
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.25);
 }
 
 .stat-btn.neutral {
-    color: #ffa500;
-    background: rgba(255, 165, 0, 0.15);
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.15);
 }
 
 .stat-btn.neutral:hover {
-    color: #ffa500;
-    background: rgba(255, 165, 0, 0.25);
-    box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.25);
 }
 
 .stat-btn.disliked {
-    color: var(--primary-magenta);
-    background: rgba(230, 45, 232, 0.15);
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.15);
 }
 
 .stat-btn.disliked:hover {
-    color: var(--primary-magenta);
-    background: rgba(230, 45, 232, 0.25);
-    /* 移除发光效果 */
+    color: #1B75E5;
+    background: rgba(27, 117, 229, 0.25);
 }
 
 .user-avatars {
@@ -594,21 +582,9 @@ body {
     display: none;
 }
 
-.like-avatars .mini-avatar:hover {
-    /* 移除发光效果 */
-}
-
-.neutral-avatars .mini-avatar:hover {
-    /* 移除发光效果 */
-}
-
-.dislike-avatars .mini-avatar:hover {
-    /* 移除发光效果 */
-}
-
 /* 评论区域 */
 .comments-section {
-    border-top: 1px solid #AFBBD5;
+    border-top: 1px dashed #AFBBD5;
     background: rgba(245, 245, 245, 0.98);
     cursor: pointer;
     transition: background-color 0.3s ease;
