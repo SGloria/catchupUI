@@ -367,10 +367,10 @@ function updateArticleReadState(articleId, isRead) {
     if (articleCard) {
         if (isRead) {
             articleCard.style.opacity = '0.7';
-            articleCard.querySelector('.card-title').style.color = 'var(--text-secondary)';
+            articleCard.querySelector('.card-title').style.color = '#666666';
         } else {
             articleCard.style.opacity = '1';
-            articleCard.querySelector('.card-title').style.color = 'var(--text-primary)';
+            articleCard.querySelector('.card-title').style.color = '#000000';
         }
     }
 }

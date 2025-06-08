@@ -447,7 +447,7 @@ body {
 
 .card-tag {
     padding: 4px 8px;
-    background: rgba(95, 95, 95, 0.7);
+    background: rgba(95, 95, 95, 0.9);
     color: white;
     border-radius: 12px;
     font-size: 10px;
@@ -457,11 +457,11 @@ body {
 }
 
 .card-tag.design {
-    background: rgba(95, 95, 95, 0.7);
+    background: rgba(95, 95, 95, 0.9);
 }
 
 .card-tag.programming {
-    background: rgba(95, 95, 95, 0.7);
+    background: rgba(95, 95, 95, 0.9);
 }
 
 .card-content {
