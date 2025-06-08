@@ -35,9 +35,8 @@
 
         /* 文章页专用的顶部栏毛玻璃效果 */
         .cyber-header {
-            background: rgba(0, 0, 0, 0.7) !important;
+            background: rgba(95, 95, 95, 0.7) !important;
             backdrop-filter: blur(20px) saturate(120%) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -337,9 +336,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(95, 95, 95, 0.7);
             backdrop-filter: blur(20px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50px;
             padding: 12px 20px;
             box-shadow: 
@@ -820,13 +818,48 @@ function UserProfile({ user }) {
 
             <p>然而，我们也需要保持理性和谨慎，在享受AI带来便利的同时，也要关注其可能带来的挑战和风险，确保技术的发展能够真正造福人类。</p>
         </div>
+    </main>
 
-        <!-- 评论区域 -->
-        <div class="comments-section-article">
-            <h3 style="color: var(--cyber-blue); margin-bottom: 20px; font-size: 20px;">
-                <i class="fas fa-comments"></i> 评论区 (24)
-            </h3>
-            
+    <!-- 底部悬浮岛 -->
+    <div class="floating-actions">
+        <div class="floating-island">
+            <button class="float-btn like-float" onclick="toggleReaction(event, this, 'like')" data-reaction="like">
+                <i class="far fa-thumbs-up"></i>
+                <span class="float-count">128</span>
+            </button>
+            <button class="float-btn neutral-float" onclick="toggleReaction(event, this, 'neutral')" data-reaction="neutral">
+                <i class="far fa-meh"></i>
+                <span class="float-count">15</span>
+            </button>
+            <button class="float-btn dislike-float" onclick="toggleReaction(event, this, 'dislike')" data-reaction="dislike">
+                <i class="far fa-thumbs-down"></i>
+                <span class="float-count">3</span>
+            </button>
+            <button class="float-btn comment-float" onclick="toggleSidebar('comments')">
+                <i class="far fa-comment"></i>
+                <span class="float-count">24</span>
+            </button>
+            <button class="float-btn bookmark-float" onclick="toggleBookmark(event, this)" data-article-id="article-1">
+                <i class="far fa-bookmark"></i>
+            </button>
+            <button class="float-btn share-float" onclick="shareArticle(event, this)">
+                <i class="fas fa-share-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 侧边栏系统 -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- 评论侧边栏 -->
+    <div class="sidebar sidebar-comments" id="commentsSidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-comments"></i> 评论 (24)</h3>
+            <button class="sidebar-close-btn" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-content">
             <!-- 评论表单 -->
             <div class="comment-form">
                 <!-- 引用显示区域 -->
@@ -900,34 +933,6 @@ function UserProfile({ user }) {
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-
-    <!-- 底部悬浮岛 -->
-    <div class="floating-actions">
-        <div class="floating-island">
-            <button class="float-btn like-float" onclick="toggleReaction(event, this, 'like')" data-reaction="like">
-                <i class="far fa-thumbs-up"></i>
-                <span class="float-count">128</span>
-            </button>
-            <button class="float-btn neutral-float" onclick="toggleReaction(event, this, 'neutral')" data-reaction="neutral">
-                <i class="far fa-meh"></i>
-                <span class="float-count">15</span>
-            </button>
-            <button class="float-btn dislike-float" onclick="toggleReaction(event, this, 'dislike')" data-reaction="dislike">
-                <i class="far fa-thumbs-down"></i>
-                <span class="float-count">3</span>
-            </button>
-            <button class="float-btn comment-float" onclick="scrollToComments(event, this)">
-                <i class="far fa-comment"></i>
-                <span class="float-count">24</span>
-            </button>
-            <button class="float-btn bookmark-float" onclick="toggleBookmark(event, this)" data-article-id="article-1">
-                <i class="far fa-bookmark"></i>
-            </button>
-            <button class="float-btn share-float" onclick="shareArticle(event, this)">
-                <i class="fas fa-share-alt"></i>
-            </button>
         </div>
     </div>
 
@@ -1115,40 +1120,6 @@ function UserProfile({ user }) {
             quoteContent.textContent = '';
             
             showNotification('已清除引用内容', 'info');
-        }
-
-        // 滚动到评论区功能
-        function scrollToComments(event, button) {
-            event.stopPropagation();
-            
-            const commentsSection = document.querySelector('.comments-section-article');
-            if (commentsSection) {
-                // 平滑滚动到评论区
-                commentsSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // 添加动画效果
-                button.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    button.style.transform = 'scale(1)';
-                }, 200);
-                
-                // 短暂激活状态
-                button.classList.add('active');
-                setTimeout(() => {
-                    button.classList.remove('active');
-                }, 300);
-                
-                // 创建粒子特效
-                createFloatingParticles(button, '💬');
-                
-                // 触感反馈
-                if (navigator.vibrate) {
-                    navigator.vibrate(50);
-                }
-            }
         }
 
         // 评论提交功能
