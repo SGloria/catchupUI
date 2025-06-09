@@ -151,15 +151,15 @@ body {
 }
 
 .action-btn:hover {
-    background: rgba(27, 117, 229, 0.1); /* 统一使用1B75E5蓝色 */
+    background: transparent; /* 移除hover时的背景色 */
     transform: scale(1.1);
     color: #1B75E5; /* 统一使用1B75E5蓝色 */
 }
 
 .notification-badge {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 2px; /* 调整距离icon更近 */
+    right: 2px; /* 调整距离icon更近 */
     width: 12px;
     height: 12px;
     background: white;
@@ -790,15 +790,38 @@ body {
 
     .header-container {
         padding: 0 16px;
+        height: 56px; /* 减小768px时的header高度 */
+    }
+    
+    .logo-section {
+        margin-left: 16px; /* 加大一倍的左边距 */
+    }
+
+    .header-actions {
+        margin-right: 16px; /* 加大一倍的右边距 */
     }
     
     .logo-text {
-        font-size: 22px;
+        font-size: 20px; /* 稍微减小字体 */
     }
     
     .logo-icon {
-        width: 36px;
-        height: 36px;
+        width: 32px; /* 减小logo尺寸 */
+        height: 32px;
+    }
+
+    .action-btn {
+        width: 38px; /* 减小按钮尺寸 */
+        height: 38px;
+        font-size: 15px;
+    }
+
+    .notification-badge {
+        width: 10px; /* 减小角标尺寸 */
+        height: 10px;
+        font-size: 7px;
+        top: 3px;
+        right: 3px;
     }
     
     .articles-grid {
@@ -835,6 +858,7 @@ body {
     
     .main-content {
         padding: 16px 8px;
+        margin-top: 56px; /* 适配新的header高度 */
     }
     
     .action-row {
@@ -891,23 +915,49 @@ body {
 
 @media (max-width: 480px) {
     :root {
-        --header-height: 60px;
+        --header-height: 50px; /* 进一步减小小屏幕header高度 */
         --footer-height: 70px;
     }
     
+    .header-container {
+        padding: 0 12px; /* 减小左右间距 */
+        height: 50px;
+    }
+    
+    .logo-section {
+        margin-left: 8px; /* 加大一倍的左边距 */
+    }
+
+    .header-actions {
+        margin-right: 8px; /* 加大一倍的右边距 */
+    }
+    
     .logo-icon {
-        width: 32px;
-        height: 32px;
+        width: 28px; /* 进一步减小logo尺寸 */
+        height: 28px;
     }
     
     .logo-text {
-        font-size: 20px;
+        font-size: 18px; /* 进一步减小字体 */
     }
     
     .action-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
+        width: 32px; /* 进一步减小按钮尺寸 */
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .notification-badge {
+        width: 8px; /* 进一步减小角标尺寸 */
+        height: 8px;
+        font-size: 6px;
+        top: 2px;
+        right: 2px;
+    }
+
+    .main-content {
+        padding: 12px 8px; /* 减小内容区间距 */
+        margin-top: 50px; /* 适配新的header高度 */
     }
     
     .filter-bar {
@@ -1031,9 +1081,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    height: 70px; /* 与index页header高度保持一致 */
+    height: 56px; /* 与768px时的主header高度保持一致 */
 }
 
 .sidebar-header h3 {
@@ -1066,7 +1116,7 @@ body {
 }
 
 .sidebar-content {
-    padding: 20px;
+    padding: 16px;
 }
 
 /* 搜索侧边栏 */
@@ -1442,6 +1492,15 @@ body {
         width: 320px;
         right: -320px;
     }
+
+    .sidebar-header {
+        padding: 12px;
+        height: 56px; /* 与768px时的主header高度保持一致 */
+    }
+    
+    .sidebar-content {
+        padding: 12px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1451,8 +1510,8 @@ body {
     }
     
     .sidebar-header {
-        padding: 16px;
-        height: 60px; /* 与小屏幕index页header高度保持一致 */
+        padding: 12px;
+        height: 50px; /* 与480px时的主header高度保持一致 */
     }
     
     .sidebar-content {
