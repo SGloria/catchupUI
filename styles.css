@@ -151,9 +151,9 @@ body {
 }
 
 .action-btn:hover {
-    background: rgba(37, 188, 255, 0.1);
+    background: rgba(27, 117, 229, 0.1); /* 统一使用1B75E5蓝色 */
     transform: scale(1.1);
-    color: var(--primary-cyan);
+    color: #1B75E5; /* 统一使用1B75E5蓝色 */
 }
 
 .notification-badge {
@@ -585,7 +585,7 @@ body {
 
 /* 评论区域 */
 .comments-section {
-    border-top: 1px dashed #AFBBD5;
+    border-top: 1px dashed #888888;
     background: rgba(245, 245, 245, 0.98);
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -1033,10 +1033,11 @@ body {
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 70px; /* 与index页header高度保持一致 */
 }
 
 .sidebar-header h3 {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
@@ -1060,7 +1061,7 @@ body {
 
 .sidebar-close-btn:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--primary-cyan);
+    color: #1B75E5; /* 统一使用1B75E5蓝色 */
     transform: scale(1.1);
 }
 
@@ -1089,8 +1090,7 @@ body {
     padding: 12px 16px;
     color: var(--text-primary);
     font-family: var(--font-primary);
-    font-size: 14px;
-    outline: none;
+    font-size: 12px;
 }
 
 .search-input::placeholder {
@@ -1098,7 +1098,7 @@ body {
 }
 
 .search-btn {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #1B75E5, #1B75E5); /* 统一使用1B75E5蓝色 */
     border: none;
     color: white;
     padding: 12px 16px;
@@ -1107,8 +1107,8 @@ body {
 }
 
 .search-btn:hover {
-    background: var(--secondary-gradient);
-    box-shadow: var(--cyan-glow);
+    background: linear-gradient(135deg, #1661cc, #1661cc); /* 深一些的蓝色 */
+    box-shadow: 0 0 20px rgba(27, 117, 229, 0.4); /* 统一蓝色发光 */
 }
 
 .search-history-section h4 {
@@ -1135,18 +1135,18 @@ body {
 }
 
 .search-history-item:hover {
-    background: rgba(37, 188, 255, 0.1);
+    background: rgba(27, 117, 229, 0.1); /* 统一使用1B75E5蓝色 */
 }
 
 .search-history-item i {
     color: var(--text-secondary);
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .search-history-item span {
     flex: 1;
     color: var(--text-primary);
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .remove-history-btn {
@@ -1161,7 +1161,7 @@ body {
 
 .remove-history-btn:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--primary-magenta);
+    color: #1B75E5; /* 统一使用1B75E5蓝色 */
 }
 
 .clear-history-btn {
@@ -1171,7 +1171,7 @@ body {
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 10px;
     transition: all 0.3s ease;
     width: 100%;
 }
@@ -1200,8 +1200,8 @@ body {
 }
 
 .message-item.unread {
-    border-left-color: var(--primary-cyan);
-    background: rgba(37, 188, 255, 0.1);
+    border-left-color: #1B75E5; /* 统一使用1B75E5蓝色 */
+    background: rgba(27, 117, 229, 0.1);
 }
 
 .message-item:hover {
@@ -1228,48 +1228,33 @@ body {
 }
 
 .message-author {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--text-primary);
 }
 
 .message-time {
-    font-size: 12px;
+    font-size: 10px;
     color: var(--text-secondary);
     font-family: var(--font-mono);
 }
 
 .message-text {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-primary);
     margin-bottom: 8px;
     line-height: 1.4;
 }
 
-.message-article {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-secondary);
-    background: rgba(0, 0, 0, 0.3);
-    padding: 6px 10px;
-    border-radius: 4px;
-}
-
-.message-article i {
-    color: var(--primary-cyan);
-}
-
 /* 过滤侧边栏 */
 .filter-section {
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* 减少section之间的间距 */
 }
 
 .filter-section h4 {
     font-size: 14px;
     color: var(--text-primary);
-    margin: 0 0 16px 0;
+    margin: 0 0 12px 0; /* 减少标题下方间距 */
     font-family: var(--font-primary);
     font-weight: 600;
 }
@@ -1277,14 +1262,14 @@ body {
 .filter-options {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 1px; /* 进一步减少间距使其更紧凑 */
 }
 
 .filter-option {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 12px;
+    padding: 4px 12px; /* 进一步减少上下padding */
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1295,6 +1280,10 @@ body {
 }
 
 .filter-option input[type="radio"] {
+    display: none;
+}
+
+.filter-option input[type="checkbox"] {
     display: none;
 }
 
@@ -1315,21 +1304,60 @@ body {
     transform: translate(-50%, -50%) scale(0);
     width: 8px;
     height: 8px;
-    background: var(--primary-cyan);
+    background: #1B75E5; /* 统一使用1B75E5蓝色 */
     border-radius: 50%;
     transition: transform 0.3s ease;
 }
 
 .filter-option input[type="radio"]:checked + .filter-radio {
-    border-color: var(--primary-cyan);
+    border-color: #1B75E5; /* 统一使用1B75E5蓝色 */
 }
 
 .filter-option input[type="radio"]:checked + .filter-radio::after {
     transform: translate(-50%, -50%) scale(1);
 }
 
+/* 复选框样式 */
+.filter-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.filter-checkbox::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 8px;
+    height: 8px;
+    background: #1B75E5;
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+}
+
+.filter-option input[type="checkbox"]:checked + .filter-checkbox {
+    border-color: #1B75E5;
+    background: #1B75E5;
+}
+
+.filter-option input[type="checkbox"]:checked + .filter-checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: auto;
+    height: auto;
+    background: transparent;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 .filter-label {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-primary);
     flex: 1;
 }
@@ -1346,15 +1374,15 @@ body {
     padding: 10px 12px;
     color: var(--text-primary);
     font-family: var(--font-primary);
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     outline: none;
     transition: all 0.3s ease;
 }
 
 .source-select:focus {
-    border-color: var(--primary-cyan);
-    box-shadow: 0 0 0 2px rgba(37, 188, 255, 0.2);
+    border-color: #1B75E5; /* 统一使用1B75E5蓝色 */
+    box-shadow: 0 0 0 2px rgba(27, 117, 229, 0.2);
 }
 
 .source-select option {
@@ -1366,26 +1394,26 @@ body {
 .filter-actions {
     display: flex;
     gap: 12px;
-    margin-top: 30px;
+    margin-top: 20px; /* 减少顶部间距 */
 }
 
 .apply-filter-btn {
     flex: 1;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #1B75E5, #1B75E5); /* 统一使用1B75E5蓝色 */
     border: none;
     color: white;
     padding: 12px 16px;
     border-radius: 6px;
     font-family: var(--font-primary);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .apply-filter-btn:hover {
-    background: var(--secondary-gradient);
-    box-shadow: var(--cyan-glow);
+    background: linear-gradient(135deg, #1661cc, #1661cc); /* 深一些的蓝色 */
+    box-shadow: 0 0 20px rgba(27, 117, 229, 0.4); /* 统一蓝色发光 */
     transform: translateY(-1px);
 }
 
@@ -1397,7 +1425,7 @@ body {
     padding: 12px 16px;
     border-radius: 6px;
     font-family: var(--font-primary);
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -1424,6 +1452,7 @@ body {
     
     .sidebar-header {
         padding: 16px;
+        height: 60px; /* 与小屏幕index页header高度保持一致 */
     }
     
     .sidebar-content {
