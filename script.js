@@ -54,12 +54,13 @@ function addEventListeners() {
         btn.addEventListener('click', handleNavigation);
     });
     
-    // 评论区域点击事件
-    document.querySelectorAll('.comments-section').forEach(commentsSection => {
-        // 为评论区域添加点击事件，阻止冒泡
-        commentsSection.addEventListener('click', function(event) {
+    // 评论区域header点击事件
+    document.querySelectorAll('.comments-header').forEach(commentsHeader => {
+        // 为评论header添加点击事件，阻止冒泡
+        commentsHeader.addEventListener('click', function(event) {
             event.stopPropagation();
-            toggleComments(this);
+            const commentsSection = this.closest('.comments-section');
+            toggleComments(commentsSection);
         });
     });
     
@@ -70,8 +71,50 @@ function addEventListeners() {
         });
     });
     
+    // 为评论区域添加点击事件，阻止冒泡
+    document.querySelectorAll('.comments-section').forEach(commentsSection => {
+        commentsSection.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+    
+    // 为新评论输入框添加特殊处理
+    document.querySelectorAll('.new-comment-input').forEach(textarea => {
+        textarea.addEventListener('click', function(event) {
+            event.stopPropagation();
+            // 确保输入框可以正常获得焦点
+            this.focus();
+        });
+        
+        // 阻止输入框的所有鼠标事件冒泡
+        textarea.addEventListener('mousedown', function(event) {
+            event.stopPropagation();
+        });
+        
+        textarea.addEventListener('mouseup', function(event) {
+            event.stopPropagation();
+        });
+    });
+    
+    // 为评论输入容器添加事件阻止冒泡
+    document.querySelectorAll('.comment-input-container').forEach(container => {
+        container.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+    
+    // 为新评论区域添加事件阻止冒泡
+    document.querySelectorAll('.new-comment-section').forEach(section => {
+        section.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+    
     // 添加滚动监听器
     initializeScrollBehavior();
+    
+    // 初始化评论输入框状态管理
+    initializeCommentInputs();
 }
 
 // 切换评论区域显示状态
@@ -366,10 +409,8 @@ function updateArticleReadState(articleId, isRead) {
     const articleCard = document.querySelector(`[data-article-id="${articleId}"]`).closest('.article-card');
     if (articleCard) {
         if (isRead) {
-            articleCard.style.opacity = '0.7';
             articleCard.querySelector('.card-title').style.color = '#666666';
         } else {
-            articleCard.style.opacity = '1';
             articleCard.querySelector('.card-title').style.color = '#000000';
         }
     }
@@ -778,13 +819,13 @@ function toggleReaction(event, button, reactionType) {
         setTimeout(() => {
             button.style.transform = 'scale(1)';
         }, 150);
-    } else {
-        // 如果点击的是当前活动的按钮，只是添加一个小的动画反馈
-        button.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            button.style.transform = 'scale(1)';
-        }, 150);
     }
+    
+    // 添加动画反馈
+    button.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        button.style.transform = 'scale(1)';
+    }, 150);
     
     // 触感反馈（如果支持）
     if (navigator.vibrate) {
@@ -1255,7 +1296,7 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 100px;
         left: 20px;
-        background: linear-gradient(45deg, rgba(37, 188, 255, 0.1), rgba(146, 35, 255, 0.1));
+        background: rgba(95, 95, 95, 0.9);
         border: none;
         border-radius: 8px;
         padding: 12px 16px;
@@ -1263,10 +1304,10 @@ function showNotification(message, type = 'info') {
         font-family: var(--font-primary);
         font-size: 12px;
         z-index: 10000;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(20px) saturate(150%);
         transform: translateX(-100%);
         transition: transform 0.3s ease;
-        box-shadow: 0 0 20px rgba(37, 188, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     `;
     
     document.body.appendChild(notification);
@@ -1327,6 +1368,9 @@ function submitComment(event, button) {
         
         // 清空输入框
         textarea.value = '';
+        
+        // 重置按钮状态
+        updateSubmitButtonState(textarea, button);
         
         // 恢复按钮状态
         button.disabled = false;
@@ -1431,31 +1475,33 @@ function createCommentParticles(button) {
     }
 }
 
-// 监听输入框变化，动态启用/禁用提交按钮
-document.addEventListener('DOMContentLoaded', function() {
+// 初始化评论输入框
+function initializeCommentInputs() {
     // 为所有新评论输入框添加事件监听
     document.querySelectorAll('.new-comment-input').forEach(textarea => {
         const submitBtn = textarea.parentElement.querySelector('.submit-comment-btn');
         
-        // 初始状态
-        updateSubmitButtonState(textarea, submitBtn);
-        
-        // 监听输入变化
-        textarea.addEventListener('input', function() {
-            updateSubmitButtonState(this, submitBtn);
-        });
-        
-        // 监听键盘事件（Ctrl+Enter 或 Cmd+Enter 提交）
-        textarea.addEventListener('keydown', function(event) {
-            if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
-                event.preventDefault();
-                if (!submitBtn.disabled) {
-                    submitComment(event, submitBtn);
+        if (submitBtn) {
+            // 初始状态
+            updateSubmitButtonState(textarea, submitBtn);
+            
+            // 监听输入变化
+            textarea.addEventListener('input', function() {
+                updateSubmitButtonState(this, submitBtn);
+            });
+            
+            // 监听键盘事件（Ctrl+Enter 或 Cmd+Enter 提交）
+            textarea.addEventListener('keydown', function(event) {
+                if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                    event.preventDefault();
+                    if (!submitBtn.disabled) {
+                        submitComment(event, submitBtn);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
-});
+}
 
 // 更新提交按钮状态
 function updateSubmitButtonState(textarea, submitBtn) {
@@ -1463,9 +1509,9 @@ function updateSubmitButtonState(textarea, submitBtn) {
     submitBtn.disabled = !hasText;
     
     if (hasText) {
-        submitBtn.style.opacity = '1';
+        submitBtn.classList.add('active');
     } else {
-        submitBtn.style.opacity = '0.5';
+        submitBtn.classList.remove('active');
     }
 }
 
