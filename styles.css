@@ -424,7 +424,6 @@ body {
     height: 100%;
     object-fit: cover;
     transition: none;
-    filter: grayscale(70%) brightness(0.9) contrast(1.2);
 }
 
 .card-overlay {
@@ -656,8 +655,8 @@ body {
 }
 
 .comment-avatar {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: none;
 }
@@ -749,7 +748,7 @@ body {
     padding: 6px 10px;
     background: transparent;
     border: none;
-    color: #cecece;
+    color: #bdbdbd;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: var(--font-primary);
@@ -1950,19 +1949,24 @@ body {
 
 .new-comment-input-wrapper {
     display: flex;
-    gap: 0px;
+    gap: 12px;
     align-items: center;
 }
 
 .current-user-avatar {
-    display: none;
+    display: block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+    flex-shrink: 0;
 }
 
 .comment-input-container {
     flex: 1;
     position: relative;
     display: flex;
-    gap: 8px;
     align-items: center;
     width: 100%;
 }
@@ -1972,12 +1976,12 @@ body {
     background: rgba(255, 255, 255, 0.8);
     border: none;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 6px 16px;
     color: #000000;
     font-family: var(--font-primary);
     font-size: 12px;
     resize: none;
-    height: 48px;
+    height: 28px;
     transition: all 0.3s ease;
     line-height: 1.5;
     overflow-y: auto;
@@ -1999,84 +2003,42 @@ body {
     box-shadow: 0 0 0 2px rgba(27, 117, 229, 0.2);
 }
 
-.submit-comment-btn {
-    width: 48px;
-    height: 48px;
-    background: rgba(128, 128, 128, 0.3);
-    border: none;
-    border-radius: 8px;
-    color: #888888;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.submit-comment-btn:hover {
-    background: rgba(128, 128, 128, 0.5);
-}
-
-.submit-comment-btn:active {
-    transform: scale(0.95);
-}
-
-/* 当输入框为空时禁用提交按钮 */
-.submit-comment-btn:disabled {
-    background: rgba(128, 128, 128, 0.2);
-    color: #cccccc;
-    cursor: not-allowed;
-    transform: none;
-}
-
 /* 移动端适配 */
 @media (max-width: 768px) {
     .new-comment-input-wrapper {
-        gap: 0px;
+        gap: 10px;
+    }
+
+    .current-user-avatar {
+        width: 24px;
+        height: 24px;
     }
     
     .new-comment-input {
         font-size: 12px;
-        padding: 8px 12px;
-        height: 42px;
-    }
-    
-    .submit-comment-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 12px;
+        padding: 4px 12px;
+        height: 26px;
     }
 }
 
 @media (max-width: 480px) {
+    .new-comment-input-wrapper {
+        gap: 8px;
+    }
+
+    .current-user-avatar {
+        width: 20px;
+        height: 20px;
+    }
+
     .comment-input-container {
         flex-direction: row;
-        gap: 6px;
         align-items: center;
         width: 100%;
     }
     
-    .submit-comment-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 12px;
-    }
-    
     .new-comment-input {
-        height: 40px;
-        padding: 8px 12px;
+        height: 22px;
+        padding: 2px 12px;
     }
-}
-
-.submit-comment-btn.active {
-    background: #1B75E5;
-    color: white;
-    cursor: pointer;
-}
-
-.submit-comment-btn.active:hover {
-    background: #1661cc;
-    transform: scale(1.05);
 } 
